@@ -11,6 +11,7 @@ export type Props = {
 export default function Layout({children, className, style}: PropsWithChildren<Props>) {
     const wrapperRef = useRef<HTMLDivElement>(null);
 
+    //Sashe Vuchkov: Maybe we don't need that anymore
     const triggerAnimations = () => {
         if (wrapperRef.current) {
             wrapperRef.current.className = wrapperRef.current.className.indexOf('animation') < 0 ? `${wrapperRef.current.className} animation` : wrapperRef.current.className.replace('animation', '');

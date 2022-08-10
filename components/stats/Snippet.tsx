@@ -7,6 +7,7 @@ export type Props = {
     style: CSSProperties
 }
 
+//Sashe Vuchkov: Maybe we don't need the description prop at all
 export default function Snippet({children, title, description, className, style}: PropsWithChildren<Props>) {
 
     return (

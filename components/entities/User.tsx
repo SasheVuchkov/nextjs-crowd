@@ -7,6 +7,7 @@ export type Props = {
     data: UserEntity
 }
 
+//TODO: Create components for the counters
 export default function User({data}: Props) {
     return (
         <Card key={data.id} className={`mb-4 shadow bg-nav`}>

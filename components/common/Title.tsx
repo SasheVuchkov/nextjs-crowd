@@ -5,6 +5,8 @@ export type Props = {
     suffix?: string,
     className?: string,
 }
+
+//Sashe Vuchkov: It can be better, should refactor it
 export default function Title({prefix, suffix, className, children}: PropsWithChildren<Props>) {
     return (
         <h2 className={`h4 text-uppercase position-relative ${className}`} >

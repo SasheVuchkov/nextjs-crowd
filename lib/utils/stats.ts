@@ -1,22 +1,19 @@
 import {Tweet, TweetStats, User as UserEntity, UserStats} from '../types';
 
+//Sashe Vuchkov: Mock up factory function that will create some stats in the future
 export const calcBatchTweetStats = (tweets: Tweet[]) => ({
-    total_tweets: tweets.length,
-    total_likes: tweets.reduce((previous, current) => previous + current.public_metrics.like_count, 0),
-    total_retweets: tweets.reduce((previous, current) => previous + current.public_metrics.retweet_count + current.public_metrics.quote_count, 0),
-    total_replies: tweets.reduce((previous, current) => previous + current.public_metrics.reply_count, 0),
+    total_tweets: 100,
+    total_likes: 365,
+    total_retweets: 101,
+    total_replies: 150
 })
 
+//Sashe Vuchkov: Mock up factory function that will create some stats in the future
 export const calcBatchUserStats = (users: UserEntity[], tweetStats: TweetStats): UserStats => {
-    const totalFollowers = users.reduce((previous, current) => previous + current.public_metrics.followers_count, 0);
-    const totalEngagement = Object.values(tweetStats).reduce((previous, current) => previous + current, 0);
-    const totalEngagementRate = totalEngagement/totalFollowers;
-
     return {
-        total_followers: totalFollowers,
-        total_engagement: totalEngagement,
-        total_engagement_rate: totalEngagementRate.toFixed(2),
-        average_engagement_rate: (totalEngagementRate/users.length).toFixed(2),
-
+        total_followers: 67368,
+        total_engagement: 984,
+        total_engagement_rate: '0.25',
+        average_engagement_rate: '0.01',
     }
 }

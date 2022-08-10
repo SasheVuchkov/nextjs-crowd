@@ -1,6 +1,6 @@
 import {Container, Nav, NavDropdown, Navbar as NavbarBase} from 'react-bootstrap';
 
-
+//TODO: Sashe Vuchkov: Align it with the sidebar
 export default function Navbar() {
     return (
         <NavbarBase expand="lg" fixed="top" variant="dark" className="d-block d-lg-none bg-nav">
