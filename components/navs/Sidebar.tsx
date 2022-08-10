@@ -23,8 +23,8 @@ export default function Sidebar() {
                     </Link>
                 </Nav.Item>
             </Nav>
-            <div className="text-center position-fixed bottom-0 mb-3">
-                Copyrights &copy; {new Date().getFullYear()} <br />Created by <a href="https://buhalbu.com">Sashe Vuchkov</a>
+            <div className="text-center position-fixed bottom-0 mb-3" style={{width: '200px', fontSize: '0.8rem'}}>
+                Copyrights &copy; {new Date().getFullYear()} <br />Created by <a href="https://www.linkedin.com/in/maureen-ononiwu/">Maureen Ononiwu</a> & <a href="https://buhalbu.com">Sashe Vuchkov</a>
             </div>
         </div>
     );

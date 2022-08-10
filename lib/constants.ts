@@ -1,5 +1,6 @@
-import {StatsRegister} from '../pages';
+import {StatsRegister} from './types';
 
+//Sashe Vuchkov: Some initial stats to consider
 export const statsRegister: StatsRegister = {
     total_followers: {
         name: 'Total Followers',

@@ -41,7 +41,7 @@ export default function Layout({children, className, style}: PropsWithChildren<P
         </Container>
         <footer className="d-block d-lg-none">
             <Container>
-                Copyrights &copy; {new Date().getFullYear()} All rights reserved. <br />Created by <a href="https://buhalbu.com">Sashe Vuchkov</a>
+                Copyrights &copy; {new Date().getFullYear()} All rights reserved. <br />Created by <a href="https://www.linkedin.com/in/maureen-ononiwu/">Maureen Ononiwu</a> & <a href="https://buhalbu.com">Sashe Vuchkov</a>
             </Container>
         </footer>
     </div>);
