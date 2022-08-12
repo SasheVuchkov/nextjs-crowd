@@ -1,3 +1,7 @@
+declare global {
+    interface Window { twemoji: any; }
+}
+
 declare module 'jshashes';
 declare module 'chart.js/auto';
 declare module 'json';

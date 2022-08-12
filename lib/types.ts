@@ -49,6 +49,7 @@ export type User = {
     entities: {
         [key: string]: Record<string, Entity[]>,
     },
+    tweets?: Tweet[],
 }
 
 export type Stat = {

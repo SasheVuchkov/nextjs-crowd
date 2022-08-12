@@ -10,6 +10,7 @@ import Tweet from '../components/entities/Tweet';
 import Layout from '../components/common/Layout';
 import {getRecentTweets} from '../lib/repos/tweets';
 import {calcBatchTweetStats, calcBatchUserStats} from '../lib/utils/stats';
+import {getTweetUrl} from '../lib/utils/tweets';
 
 
 const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets, stats}) => {
@@ -30,7 +31,9 @@ const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets,
                 <Col lg={6} className="px-1 px-lg-3 mt-5 mt-lg-0">
                     <Title prefix="Top 3" className="mt-2 animated-text text-center text-lg-start">Tweets</Title>
                     <p className="animated-text mb-3 text-center text-lg-start">Our algorithm ranked these three tweets as the most prominent ones that mention the React.Js framework.</p>
-                    {tweets && tweets.slice(0, 3).map(tweet => <Tweet data={tweet} />)}
+                    {tweets && tweets.slice(0, 3).map(tweet => <Tweet key={tweet.id} data={tweet} onClick={() => {
+                        window.open(getTweetUrl(tweet), 'blank');
+                    }} />)}
                 </Col>
             </Row>
             <Row className="gx-0">
@@ -42,7 +45,9 @@ const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets,
             <Row className="gx-0">
                 {tweets && tweets.map(tweet =>
                     <Col key={tweet.id} lg={6} className="px-1 px-lg-3">
-                        <Tweet data={tweet} />
+                        <Tweet data={tweet} onClick={() => {
+                            window.open(getTweetUrl(tweet), 'blank');
+                        }} />
                     </Col>
                 )}
             </Row>

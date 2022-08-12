@@ -26,12 +26,30 @@ a {
 .layout {
 }
 
-.index {
+.emoji {
+  width: 18px;
+  margin: 0 2px;
+}
+
+
+.index,
+.user-details {
   background-attachment: fixed;
   background-color: #000;
   background-image:  linear-gradient(120deg, rgba(0,0,0,.8) 75%, rgba(170,66,27, .6) 100%), url('/images/bg-pattern-desaturated.png');
   color: #eee;
 }
+
+.user-details {
+  background-image:  linear-gradient(120deg, rgba(0,0,0,.6) 45%, rgba(170,66,27, .7) 100%), url('/images/bg-pattern-desaturated.png');
+}
+
+.user-details .modal-header,
+.user-details .modal-body {
+  background: transparent;
+  border: 0;
+}
+
 
 .tweets {
   background-attachment: fixed;
@@ -40,8 +58,10 @@ a {
   color: #eee;
 }
 
+
 .index .focus-color,
-.index a:hover {
+.index a:hover,
+.user-details a {
   color: #ff6831;
 }
 
@@ -50,7 +70,12 @@ a {
   color: #028494;
 }
 
+.user-details a:hover {
+  color: #eee;
+}
+
 .index .bg-nav,
+.user-details .bg-nav,
 .index .sidebar,
 .index footer {
   background-color: #000;
@@ -132,8 +157,6 @@ footer {
 }
 
 .index .card {
-  background: linear-gradient(99deg, rgba(37,24,68, .6) 0%, rgba(46,51,99,1) 35%, rgba(54,71,123,.6) 100%);
-  background: linear-gradient(165deg, rgba(170,66,27, .7)  20%, rgba(0,0,0,.8) 100%);
   background: linear-gradient(165deg, rgba(0,0,0, .8)  20%, rgba(0,0,0,.4) 100%);
   border: 1px solid  rgba(170,66,27, .7);
 }
@@ -149,6 +172,7 @@ footer {
   border-radius: 0;
   transition: all 500ms !important;
   transform: scale(1) translateX(0rem);
+  cursor: pointer;
 }
 
 
