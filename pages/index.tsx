@@ -3,15 +3,15 @@ import Head from 'next/head'
 import {Button, Col, Row} from 'react-bootstrap';
 
 import styles from '../styles/Home.module.css'
-import {CurrentStats, MediaItem, Tweet, TwitterApiResponseData} from '../lib/types';
+import {CurrentStats, User as UserType} from '../lib/types';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
 import User from '../components/entities/User';
 import Layout from '../components/common/Layout';
-import {getRecentTweets} from '../lib/repos/tweets';
 import {calcBatchTweetStats, calcBatchUserStats} from '../lib/utils/stats';
+import {getRecentTweets} from '../lib/repos/tweets';
 
-const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({users, stats}) => {
+const Home: NextPage<{ users: UserType[] } & {stats: CurrentStats}> = ({users, stats}) => {
   return (
     <>
       <Head>
@@ -23,30 +23,30 @@ const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({users, 
         <Layout className="layout index animation">
             <Row className="gx-0">
                 <Col lg={6} className="col-stats">
-                    <Banner title={<Title prefix="Users" className="top-50 text-center">Stats</Title>} stats={stats.users} />
+                    <Banner className="mt-5 mt-lg-0" title={<Title prefix="Users" className="top-50 text-center">Stats</Title>} stats={stats.users} />
                 </Col>
 
-                <Col lg={6} className="px-3">
-                    <Title prefix="Top 3" className="mt-2 animated-text">Users</Title>
-                    <p className="animated-text mb-3">Our special algorithm ranked these 3 users as the most prominent ones who mentioned the most loved React.Js framework.</p>
+                <Col lg={6} className="px-3 mt-5 mt-lg-0">
+                    <Title prefix="Top 3" className="mt-2 animated-text text-center text-lg-start">Users</Title>
+                    <p className="animated-text mb-3 text-center text-lg-start">Our special algorithm ranked these 3 users as the most prominent ones who mentioned the most loved React.Js framework.</p>
                     {users && users.slice(0, 3).map(user => <User data={user} />)}
                 </Col>
             </Row>
             <Row className="gx-0">
-                <Col lg={6} className="px-3 mt-5 mb-4 offset-3 text-center">
+                <Col lg={6} className="px-1 px-lg-3 mt-5 mb-4 offset-lg-3 text-center">
                     <Title prefix="All" className="mt-2 animated-text">Users</Title>
                     <p className="animated-text">Our special algorithm ranked these 3 users as the most prominent ones who mentioned the most loved React.Js framework.</p>
                 </Col>
             </Row>
             <Row className="gx-0">
                 {users && users.map(user =>
-                    <Col key={user.id} lg={6} className="px-3">
+                    <Col key={user.id} lg={6} className="px-1 px-lg-3">
                         <User data={user} />
                     </Col>
                 )}
             </Row>
             <Row className="gx-0">
-                <Col lg={6} className="offset-lg-3 px-3 animated-text">
+                <Col lg={6} className="offset-lg-3 px-1 px-lg-3 animated-text">
                     <Button variant="outline-light" className="w-100" >Load More</Button>
                 </Col>
             </Row>

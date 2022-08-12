@@ -19,6 +19,10 @@ a {
   box-sizing: border-box;
 }
 
+.navbar a {
+  color: #eee;
+}
+
 .layout {
 }
 
@@ -54,6 +58,7 @@ a {
 
 }
 
+
 .tweets .bg-nav,
 .tweets .sidebar,
 .tweets footer {
@@ -76,6 +81,10 @@ a {
   max-height: 100vh;
   overflow-y: hidden;
   margin-bottom: 15px;
+}
+
+.col-stats {
+  min-height: 60vh;
 }
 
 .index .col-stats {
@@ -179,6 +188,7 @@ footer {
 .tweets.animation .shadow  {
   box-shadow: 0 0.5rem 0.65rem rgba(2,94,135, 0)  !important;
 }
+
 
 .index .banner {
    background: linear-gradient(0deg, rgba(0, 0, 0 , 1) 0%, rgba(0,0,0, .3) 70%, rgba(0,0,0, 0) 100%);

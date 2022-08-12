@@ -6,12 +6,13 @@ import {statsRegister} from '../../lib/constants';
 export type Props = {
     title: string|JSX.Element,
     stats: UserStats|TweetStats,
+    className?: string,
 }
 
 
-export default function Banner({title, stats}: Props) {
+export default function Banner({title, stats, className}: Props) {
     return (
-        <div className="banner">
+        <div className={`banner ${className}`}>
             {title}
             <div className="mt-2 d-flex flex-wrap justify-content-between align-items-center w-100">
                 {Object.entries(stats).map((entry: [string, any]) =>
