@@ -10,9 +10,9 @@ export type Props = {
 export default function Link({href, icon, children}: PropsWithChildren<Props>) {
     return (
         <NavLink href={href} passHref={true}>
-            <a className="d-flex">
+            <a className="d-flex align-items-center">
                 {icon}
-                <span className="ms-2">{children}</span>
+                <span className="ms-2 position-relative" style={{top: '2px'}} >{children}</span>
             </a>
         </NavLink>
     );

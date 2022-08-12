@@ -1,6 +1,6 @@
 import {Nav} from 'react-bootstrap';
 import Link from './Link';
-import {barChart, edit, follower} from '../../lib/icons';
+import {barChart, coffee, edit, follower, linkedin} from '../../lib/icons';
 
 export default function Sidebar() {
     return (
@@ -17,9 +17,21 @@ export default function Sidebar() {
                         Top Tweets
                     </Link>
                 </Nav.Item>
+
+                <Nav.Item className="my-4">
+                    <Link href="/" icon={coffee}>
+                        About
+                    </Link>
+                </Nav.Item>
+
+                <Nav.Item className="mb-3 mt-3">
+                    <Link href="https://www.linkedin.com/in/maureen-ononiwu/" icon={linkedin}>
+                        Maureen
+                    </Link>
+                </Nav.Item>
                 <Nav.Item className="mb-3">
-                    <Link href="/" icon={barChart}>
-                        More Stats
+                    <Link href="https://www.linkedin.com/in/sashe-vuchkov-6a5b18aa/" icon={linkedin}>
+                        Sashe
                     </Link>
                 </Nav.Item>
             </Nav>

@@ -36,11 +36,13 @@ a {
   color: #eee;
 }
 
-.index .focus-color {
+.index .focus-color,
+.index a:hover {
   color: #ff6831;
 }
 
-.tweets .focus-color {
+.tweets .focus-color,
+.tweets a:hover {
   color: #028494;
 }
 
