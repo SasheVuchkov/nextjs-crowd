@@ -28,14 +28,14 @@ const Home: NextPage<{ users: UserType[] } & {stats: CurrentStats}> = ({users, s
 
                 <Col lg={6} className="px-3 mt-5 mt-lg-0">
                     <Title prefix="Top 3" className="mt-2 animated-text text-center text-lg-start">Users</Title>
-                    <p className="animated-text mb-3 text-center text-lg-start">Our special algorithm ranked these 3 users as the most prominent ones who mentioned the most loved React.Js framework.</p>
+                    <p className="animated-text mb-3 text-center text-lg-start">Our algorithm ranked these three users as the most prominent ones now who mentioned the React.Js framework Next.js.</p>
                     {users && users.slice(0, 3).map(user => <User data={user} />)}
                 </Col>
             </Row>
             <Row className="gx-0">
                 <Col lg={6} className="px-1 px-lg-3 mt-5 mb-4 offset-lg-3 text-center">
                     <Title prefix="All" className="mt-2 animated-text">Users</Title>
-                    <p className="animated-text">Our special algorithm ranked these 3 users as the most prominent ones who mentioned the most loved React.Js framework.</p>
+                    <p className="animated-text">Here is a list of all users who talked about Next.Js today</p>
                 </Col>
             </Row>
             <Row className="gx-0">

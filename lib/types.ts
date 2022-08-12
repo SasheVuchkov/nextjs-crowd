@@ -9,7 +9,8 @@ export type Tweet = {
         media_keys: string[]
     },
     public_metrics: TweetPublicMetrics;
-    user?: User,
+    user?: User|null,
+    entities: any,
 }
 
 export type MediaItem = {
@@ -74,10 +75,10 @@ export type TweetStats = {
 }
 
 export type UserStats = {
+    total_users: number,
     total_followers: number,
     total_engagement: number,
     total_engagement_rate: string,
-    average_engagement_rate: string,
 }
 
 export type TwitterApiResponseData = {tweets: Tweet[], media: MediaItem[], users: User[]};

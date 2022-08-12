@@ -9,22 +9,24 @@ export const statsRegister: StatsRegister = {
     },
 
     total_engagement: {
-        name: 'Total Engagement',
+        name: 'Engagements',
         description: 'The total number likes, replies and retweets of the collected tweets',
         icon: '',
     },
 
     total_engagement_rate: {
-        name: 'Total Engagement Rate',
+        name: 'Engagement Rate',
         description: 'The total engagement rate of all the collected tweets ',
         icon: '',
     },
 
-    average_engagement_rate: {
-        name: 'Avg. Engagement Rate',
-        description: 'The average engagement rate per featured author',
+    total_users: {
+        name: 'Total Users',
+        description: 'The total number of detected users who mention Next.js',
         icon: '',
-    },  total_tweets: {
+    },
+
+    total_tweets: {
         name: 'Collected Tweets',
         description: 'The total number of collected tweets today',
         icon: '',
