@@ -1,5 +1,7 @@
 import {MediaItem, Tweet, TwitterApiResponseData, User as UserEntity} from '../types';
-import {assignUsersToTweets} from '../utils/tweets';
+import { assignUsersToTweets } from '../utils/tweets';
+
+
 
 import data from '../mocks/data.json';
 
@@ -10,3 +12,5 @@ export const getRecentTweets = async (maxResults: number = 100): Promise<Twitter
         users: data.includes.users as UserEntity[],
     }
 }
+
+

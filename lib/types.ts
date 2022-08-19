@@ -1,15 +1,27 @@
-export type TweetPublicMetrics = {retweet_count: number, reply_count: number, like_count: number, quote_count: number};
+
+export type TweetPublicMetrics = {
+    retweet_count: number, 
+    reply_count: number, 
+    like_count: number, 
+    quote_count: number
+};
 
 export type Tweet = {
     id: string,
     author_id: string,
     text: string,
     created_at: string,
-    attachments?: {
-        media_keys: string[]
-    },
-    public_metrics: TweetPublicMetrics;
+    public_metrics: TweetPublicMetrics,
     user?: User,
+}
+
+export type FormattedTweet = {
+    id: string,
+    author_id: string,
+    text: string,
+    created_at: string,
+    score: number
+    // user?: User,
 }
 
 export type MediaItem = {
@@ -22,7 +34,7 @@ export type UserPublicMetrics = {
     followers_count: number,
     following_count: number,
     tweet_count: number,
-    listed_count: 53,
+    listed_count: number,
 }
 
 export type Entity = {
@@ -44,10 +56,19 @@ export type User = {
     description: string,
     created_at: string,
     verified: boolean,
-    public_metrics: UserPublicMetrics,
-    entities: {
-        [key: string]: Record<string, Entity[]>,
-    },
+    public_metrics: UserPublicMetrics
+}
+
+export type FormattedUser = {
+    id: string,
+    name: string,
+    username: string,
+    url: string,
+    profile_image_url: string,
+    description: string,
+    created_at: string,
+    verified: boolean,
+    score: number
 }
 
 export type Stat = {
@@ -80,4 +101,21 @@ export type UserStats = {
     average_engagement_rate: string,
 }
 
-export type TwitterApiResponseData = {tweets: Tweet[], media: MediaItem[], users: User[]};
+export type Includes = {
+    users: User[]
+}
+
+export type Meta = {
+
+    newest_id: string,
+    oldest_id: string,
+    result_count: number,
+    next_token?: string
+}
+
+export type TwitterApiResponseData = {
+    data: Tweet[], 
+    includes: Includes,
+    meta: Meta
+
+};
