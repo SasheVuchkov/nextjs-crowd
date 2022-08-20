@@ -58,6 +58,13 @@ a {
   color: #eee;
 }
 
+.index .no-avatar {
+  background-color: #ff6831;
+}
+
+.tweets .no-avatar {
+  background-color: #028494;
+}
 
 .index .focus-color,
 .index a:hover,

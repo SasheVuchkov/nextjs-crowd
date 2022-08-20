@@ -3,6 +3,7 @@ import {follower, heart, reply, retweet} from '../../lib/icons';
 import {User as UserEntity} from '../../lib/types';
 import {applyUserDescriptionEntities, colorMentions, formatContent} from '../../lib/utils/formatContent';
 import {CardStat} from '../stats/CardStat';
+import Avatar from '../common/Avatar';
 
 export type Props = {
     data: UserEntity,
@@ -14,7 +15,7 @@ export default function User({data, onClick}: Props) {
     return (
         <Card key={data.id} className={`mb-4 shadow bg-nav`} onClick={onClick}>
             <Card.Header className="d-flex">
-                <img src={data.profile_image_url} width={50} height={50} alt={`The avatar of ${data.name}`} />
+                <Avatar src={data.profile_image_url} width={50} height={50} alt={`The avatar of ${data.name}`} />
                 <div className="user w-100 d-flex flex-column flex-lg-row align-items-start justify-content-between">
                     <span className="d-flex flex-row align-items-start flex-lg-column align-items-lg-start ms-2">
                         <span>{data.name}</span>

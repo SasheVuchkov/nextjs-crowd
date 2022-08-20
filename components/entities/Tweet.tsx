@@ -3,11 +3,9 @@ import {follower, heart, reply, retweet} from '../../lib/icons';
 import {Tweet as TweetEntity} from '../../lib/types';
 import {
     applyTweetEntities,
-    applyUserDescriptionEntities,
-    colorMentions,
-    formatContent
 } from '../../lib/utils/formatContent';
 import {CardStat} from '../stats/CardStat';
+import Avatar from '../common/Avatar';
 
 export type Props = {
     data: TweetEntity,
@@ -19,7 +17,7 @@ export default function Tweet({data, onClick}: Props) {
     return (
         <Card key={data.id} className={`mb-4 shadow bg-nav`} onClick={onClick}>
             <Card.Header className="d-flex">
-                <img src={data.user?.profile_image_url} width={50} height={50} alt={`The avatar of ${data.user?.name}`} />
+                <Avatar src={data.user?.profile_image_url} width={50} height={50} alt={`The avatar of ${data.user?.name}`} />
                 <div className="user w-100 d-flex flex-column flex-lg-row align-items-start justify-content-between">
                     <span className="d-flex flex-row align-items-start flex-lg-column align-items-lg-start ms-2">
                         <span>{data.user?.name}</span>

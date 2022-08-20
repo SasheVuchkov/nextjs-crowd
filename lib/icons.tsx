@@ -16,3 +16,4 @@ export const send = <IconWrapper svg={feather.icons.send.toSvg()} className="ico
 export const coffee = <IconWrapper svg={feather.icons.coffee.toSvg()} className="icon icon-coffee" />;
 export const twitter = <IconWrapper svg={feather.icons.twitter.toSvg()} className="icon icon-twitter" />;
 export const linkedin = <IconWrapper svg={feather.icons.linkedin.toSvg()} className="icon icon-linkedin" />;
+export const slash = <IconWrapper svg={feather.icons.slash.toSvg()} className="icon icon-slash" />;
