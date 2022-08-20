@@ -66,17 +66,28 @@ a {
   background-color: #ff6831;
 }
 
+.index .load-more {
+  border-color: #ff6831;
+}
+
 .tweets .no-avatar {
   background-color: #028494;
 }
 
+.tweets .load-more {
+  border-color: #028494;
+}
+
+
 .index .focus-color,
+.index .load-more,
 .index a:hover,
 .user-details a {
   color: #ff6831;
 }
 
 .tweets .focus-color,
+.tweets .load-more,
 .tweets a:hover {
   color: #028494;
 }

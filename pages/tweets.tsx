@@ -53,7 +53,7 @@ const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets,
             </Row>
             <Row className="gx-0">
                 <Col lg={6} className="offset-lg-3 px-1 px-lg-3 animated-text">
-                    <Button variant="outline-light" className="w-100" >Load More</Button>
+                    <Button variant="outline-light" className="w-100 load-more" >Load More</Button>
                 </Col>
             </Row>
         </Layout>
