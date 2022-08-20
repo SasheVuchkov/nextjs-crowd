@@ -9,7 +9,7 @@ body {
   scroll-behavior: auto !important;
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .brand {
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .navbar-brand {
   font-family: 'Share Tech', sans-serif !important;
 }
 
@@ -198,7 +198,7 @@ footer {
 }
 
 .card:hover {
-  transform: scale(1.08) translateX(-1rem);
+  /*transform: scale(1.08) translateX(-1rem);*/
 }
 
 .animation .card {
@@ -210,6 +210,11 @@ footer {
   transition: box-shadow 250ms ease-in-out;
 }
 
+
+.index .shadow.card:hover {
+  box-shadow: 0 0.5rem 0.75rem rgb(204, 69, 47, .75) !important;
+}
+
 .index.animation .shadow  {
   box-shadow: 0 0.5rem 0.65rem rgb(204, 69, 47, 0) !important;
 }
@@ -217,7 +222,10 @@ footer {
 .tweets .shadow {
   box-shadow: 0 0.5rem 0.65rem rgba(2,94,135, .25) !important;
   transition: box-shadow 250ms ease-in-out;
+}
 
+.tweets .shadow.card:hover  {
+  box-shadow: 0 0.5rem 0.75rem rgba(2,94,135, .75)  !important;
 }
 
 .tweets.animation .shadow  {
