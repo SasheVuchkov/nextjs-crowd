@@ -1,7 +1,38 @@
-import {StatsRegister} from './types';
+import {AboutStats, StatsRegister} from './types';
+
+export const aboutStats: AboutStats = {
+    developers_num: 2,
+    tech_used: 8,
+    invested_hours: 165,
+    code_lines: 2006,
+}
 
 //Sashe Vuchkov: Some initial stats to consider
 export const statsRegister: StatsRegister = {
+    developers_num: {
+        name: 'Developers',
+        description: 'The total number of developers who worked on this app',
+        icon: '',
+    },
+
+    code_lines: {
+        name: 'Code Lines',
+        description: 'Approximate number of code lines',
+        icon: '',
+    },
+
+    invested_hours: {
+        name: 'Invested Hours',
+        description: 'The total number of invested hours from the project',
+        icon: '',
+    },
+
+    tech_used: {
+        name: 'Tech Used',
+        description: 'Our stack: Redis, Next.Js, React.Js, HTML, CSS, TypeScript, JavaScript, Node.Js',
+        icon: '',
+    },
+
     total_followers: {
         name: 'Total Followers',
         description: 'The total number of people who follow the featured twitter users',

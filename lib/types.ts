@@ -65,8 +65,12 @@ export type CurrentStats = {
 
 export type StatsRegister = Record<string, Stat>;
 
-
-
+export type AboutStats = {
+    invested_hours: number,
+    developers_num: number,
+    code_lines: number,
+    tech_used: number,
+}
 
 export type TweetStats = {
     total_tweets: number,

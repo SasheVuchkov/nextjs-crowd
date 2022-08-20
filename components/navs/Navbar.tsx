@@ -16,7 +16,7 @@ export default function Navbar() {
                         <Link className="nav-link" href="/" icon={follower}>Top Users</Link>
                         <Link className="nav-link" href="/tweets" icon={edit}>Top Tweets</Link>
 
-                        <Link className="nav-link" href="/" icon={coffee}>About</Link>
+                        <Link className="nav-link" href="/about" icon={coffee}>About</Link>
 
                         <Link className="nav-link" href="https://www.linkedin.com/in/maureen-ononiwu/" icon={linkedin}>Maureen</Link>
                         <Link className="nav-link" href="https://www.linkedin.com/in/sashe-vuchkov-6a5b18aa/" icon={linkedin}>Sashe</Link>

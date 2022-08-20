@@ -29,7 +29,7 @@ const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets,
                 </Col>
 
                 <Col lg={6} className="px-1 px-lg-3 mt-5 mt-lg-0">
-                    <Title prefix="Top 3" className="mt-2 animated-text text-center text-lg-start">Tweets</Title>
+                    <Title prefix="Top 3" className="mt-4 animated-text text-center text-lg-start">Tweets</Title>
                     <p className="animated-text mb-3 text-center text-lg-start">Our algorithm ranked these three tweets as the most prominent ones that mention the React.Js framework.</p>
                     {tweets && tweets.slice(0, 3).map(tweet => <Tweet key={tweet.id} data={tweet} onClick={() => {
                         window.open(getTweetUrl(tweet), 'blank');
@@ -43,7 +43,7 @@ const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets,
                 </Col>
             </Row>
             <Row className="gx-0">
-                {tweets && tweets.map(tweet =>
+                {tweets && tweets.slice(0, 10).map(tweet =>
                     <Col key={tweet.id} lg={6} className="px-1 px-lg-3">
                         <Tweet data={tweet} onClick={() => {
                             window.open(getTweetUrl(tweet), 'blank');

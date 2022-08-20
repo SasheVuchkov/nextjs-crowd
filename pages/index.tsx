@@ -34,7 +34,7 @@ const Home: NextPage<{ users: UserType[], tweets: TweetType[] } & {stats: Curren
                 </Col>
 
                 <Col lg={6} className="px-3 mt-5 mt-lg-0">
-                    <Title prefix="Top 3" className="mt-2 animated-text text-center text-lg-start">Users</Title>
+                    <Title prefix="Top 3" className="mt-4 animated-text text-center text-lg-start">Users</Title>
                     <p className="animated-text mb-3 text-center text-lg-start">Our algorithm ranked these three users as the most prominent ones now who mentioned the React.Js framework Next.js.</p>
                     {users && users.slice(0, 3).map(user => <User key={user.id} data={user} onClick={() => setSelectedUser(user)} />)}
                 </Col>
@@ -46,7 +46,7 @@ const Home: NextPage<{ users: UserType[], tweets: TweetType[] } & {stats: Curren
                 </Col>
             </Row>
             <Row className="gx-0">
-                {users && users.map(user =>
+                {users && users.slice(0, 10).map(user =>
                     <Col key={user.id} lg={6} className="px-1 px-lg-3">
                         <User data={user} onClick={() => {
                             setSelectedUser(user)

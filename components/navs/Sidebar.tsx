@@ -5,7 +5,7 @@ import {barChart, coffee, edit, follower, linkedin} from '../../lib/icons';
 export default function Sidebar() {
     return (
         <div className="position-fixed">
-            <div className="h4 my-2">Next.Js <span className="focus-color">Crowd</span></div>
+            <div className="h4 my-4">Next.Js <span className="focus-color">Crowd</span></div>
             <Nav className="flex-column justify-content-center mt-4" style={{minHeight: '70vh'}}>
                 <Nav.Item className="mb-3">
                     <Link href="/" icon={follower}>
@@ -19,7 +19,7 @@ export default function Sidebar() {
                 </Nav.Item>
 
                 <Nav.Item className="my-4">
-                    <Link href="/" icon={coffee}>
+                    <Link href="/about" icon={coffee}>
                         About
                     </Link>
                 </Nav.Item>
