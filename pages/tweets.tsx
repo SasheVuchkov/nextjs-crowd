@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import {Button, Col, Row} from 'react-bootstrap';
 
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Tweets.module.css'
 import {CurrentStats, TwitterApiResponseData} from '../lib/types';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
@@ -11,6 +11,8 @@ import Layout from '../components/common/Layout';
 import {getRecentTweets} from '../lib/repos/tweets';
 import {calcBatchTweetStats, calcBatchUserStats} from '../lib/utils/stats';
 import {getTweetUrl} from '../lib/utils/tweets';
+
+
 
 
 const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets, stats}) => {
@@ -22,7 +24,7 @@ const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets,
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-        <Layout className="layout animation tweets">
+        <Layout className={`layout animation tweets`}>
             <Row className="gx-0">
                 <Col lg={6} className="col-stats">
                     <Banner className="mt-5 mt-lg-0" title={<Title prefix="Tweets" className="top-50 text-center">Stats</Title>} stats={stats.tweets} />
