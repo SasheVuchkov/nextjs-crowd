@@ -1,8 +1,8 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.userSchema = exports.tweetSchema = void 0;
-var redis_om_1 = require("redis-om");
-var entities_1 = require("./entities");
+const redis_om_1 = require("redis-om");
+const entities_1 = require("./entities");
 exports.tweetSchema = new redis_om_1.Schema(entities_1.EntityTweet, {
     id: { type: 'string' },
     text: { type: 'string' },

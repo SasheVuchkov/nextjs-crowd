@@ -11,7 +11,7 @@ import Layout from '../components/common/Layout';
 import {getRecentTweets} from '../lib/repos/tweets';
 import {calcBatchTweetStats, calcBatchUserStats} from '../lib/utils/stats';
 
-const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({users, stats}) => {
+const Home: NextPage<any & {stats: CurrentStats}> = ({users, stats}) => {
   return (
     <>
       <Head>
@@ -67,5 +67,5 @@ export const getServerSideProps = async () => {
         users: calcBatchUserStats(data.users, tweetStats),
     }
 
-    return {props: {...data, stats: currentStats}};
+    return {props: {users: data.users, tweets: data.tweets, stats: currentStats}};
 }

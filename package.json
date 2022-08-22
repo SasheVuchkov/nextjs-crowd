@@ -2,6 +2,7 @@
   "name": "sv-shumno",
   "version": "0.1.0",
   "private": true,
+  "main": "./dist/Jobs/StreamTweets.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -25,7 +26,8 @@
     "react-dom": "18.2.0",
     "redis": "^4.2.0",
     "redis-om": "^0.3.6",
-    "twitter-api-sdk": "^1.1.0"
+    "twitter-api-sdk": "^1.1.0",
+    "webpack-merge": "^5.8.0"
   },
   "devDependencies": {
     "@types/node": "18.6.3",

@@ -2,8 +2,7 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import {Button, Col, Row} from 'react-bootstrap';
 
-import styles from '../styles/Home.module.css'
-import {CurrentStats, MediaItem, Tweet, TwitterApiResponseData} from '../lib/types';
+import {CurrentStats, TwitterApiResponseData} from '../lib/types';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
 import User from '../components/entities/User';
@@ -11,7 +10,7 @@ import Layout from '../components/common/Layout';
 import {getRecentTweets} from '../lib/repos/tweets';
 import {calcBatchTweetStats, calcBatchUserStats} from '../lib/utils/stats';
 
-const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({users, stats}) => {
+const Home: NextPage<any & {stats: CurrentStats}> = ({users, stats}) => {
   return (
     <>
       <Head>
@@ -67,5 +66,5 @@ export const getServerSideProps = async () => {
         users: calcBatchUserStats(data.users, tweetStats),
     }
 
-    return {props: {...data, stats: currentStats}};
+    return {props: {tweets: data.tweets, users: data.users, stats: currentStats}};
 }

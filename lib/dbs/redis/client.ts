@@ -1,10 +1,18 @@
 import { Client } from 'redis-om'
 import {config} from 'dotenv'
-config()
+config({path: './.env.local'})
 
 const url = process.env.REDIS_URL
+let redisClient: Client|undefined;
 
+export const getRedisClient = async() => {
+    if (!redisClient) {
+        redisClient = new Client();
+    }
 
-const RedisClient = await new Client().open(url)
+    if (!redisClient.isOpen()) {
+        await redisClient.open(url);
+    }
 
-export {RedisClient}
+    return redisClient;
+}

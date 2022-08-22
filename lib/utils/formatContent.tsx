@@ -1,4 +1,4 @@
-import {User} from '../types';
+import {FormattedUser, User} from '../types';
 import en from 'javascript-time-ago/locale/en';
 
 export const colorMentions = (html: string) => {
@@ -22,9 +22,18 @@ export const formatContent = (html: string) => {
     return html;
 }
 
-export const applyUserDescriptionEntities = (html: string, user: User) => {
-    const entities = user.entities?.description;
-    if (!entities) {
+export const applyUserDescriptionEntities = (html: string, user: any) => {
+    if (!user.entities) {
+        return html;
+    }
+
+    let entities = user.entities;
+
+    if (typeof entities === 'string') {
+        entities = JSON.parse(user.entities);
+    }
+
+    if (!entities.description) {
         return html;
     }
 
@@ -33,7 +42,7 @@ export const applyUserDescriptionEntities = (html: string, user: User) => {
             return;
         }
 
-        entities[entity].forEach(ent => {
+        entities.description[entity].forEach(ent => {
 
             if (entity === 'hashtags') {
                 console.log(`replaced hashtag ${ent.tag}`)

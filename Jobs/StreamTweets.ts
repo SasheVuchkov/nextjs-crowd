@@ -2,8 +2,8 @@ import { Client } from "twitter-api-sdk"
 import {UserRepository, TweetRepository} from '../lib/dbs/redis/repository'
 import {config} from 'dotenv'
 import { TweetPublicMetrics, Tweet, FormattedUser, FormattedTweet, User, TwitterApiResponseData } from '../lib/types'
-import {RedisClient} from '../lib/dbs/redis/client'
-config()
+import {getRedisClient} from '../lib/dbs/redis/client'
+config({path: './.env.local'})
 
 if (process.env.BearerTOKEN){
 
@@ -16,8 +16,10 @@ var TOKEN: string = process.env.BearerTOKEN
 async function main(): Promise<void>{
 
 
-  const TweetData: TwitterApiResponseData = await fetchTweets()
+  const TweetData: TwitterApiResponseData = await fetchTweets();
+  console.log(TweetData);
 
+    /*
   if (TweetData['data']){
 
   const tweets: Tweet[] = TweetData['data']
@@ -49,18 +51,17 @@ async function main(): Promise<void>{
       
     }
     
-    await RedisClient.close()
-  }else{
-
-    return
+    const redisClient = await getRedisClient();
+    await redisClient.close();
   }
 
-
+     */
 }
 
 async function calcUserEngagement(Authorid: string): Promise<number>{
 
-  var records = await TweetRepository.search()
+    const repo = await TweetRepository();
+  var records = await repo.search()
   .where('author_id').equals(Authorid).return.all()
 
   var sum_of_tweet_scores = 0
@@ -72,7 +73,7 @@ async function calcUserEngagement(Authorid: string): Promise<number>{
 
       var entityId = record.entityId
 
-      var fetchrecord = await TweetRepository.fetch(entityId)
+      var fetchrecord = await repo.fetch(entityId)
 
       var score = fetchrecord.score
 
@@ -147,53 +148,48 @@ async function getFormattedUserObject(user: User): Promise<FormattedUser>{
 
 
 async function updateTweetRecord(id: string, tweet_from_raw_data: Tweet): Promise<void>{
-
-  var record = await TweetRepository.search()
+    const repo = await TweetRepository();
+  var record = await repo.search()
   .where('id').equals(id).return.all()
 
   var entityId_of_record = record[0].entityId
 
-  var fetchRecordforUpdate = await TweetRepository.fetch(entityId_of_record)
+  var fetchRecordforUpdate = await repo.fetch(entityId_of_record)
 
   fetchRecordforUpdate.score = calcTweetScore(tweet_from_raw_data)
 
-  await TweetRepository.save(fetchRecordforUpdate)
+  await repo.save(fetchRecordforUpdate)
 
 }
 
 async function updateUserRecord(id: string, user_from_raw_data: User): Promise<void>{
-
-  var record = await UserRepository.search()
+  const repo = await UserRepository();
+  var record = await repo.search()
   .where('id').equals(id).return.all()
 
 
   var entityId_of_record = record[0].entityId
 
-  var fetchRecordforUpdate = await UserRepository.fetch(entityId_of_record)
+  var fetchRecordforUpdate = await repo.fetch(entityId_of_record)
 
   fetchRecordforUpdate.score = await calcUserScore(user_from_raw_data)
-
-  await UserRepository.save(fetchRecordforUpdate)
+  await repo.save(fetchRecordforUpdate)
 
 }
 
 
 async function tweetIdInDB(id: string): Promise<Boolean>{
+    const repo = await TweetRepository();
 
-  var record = await TweetRepository.search()
+  const record = await repo.search()
   .where('id').equals(id).return.all()
 
-  if (record.length != 0){
-
-    return true
-  }
-
-return false
+    return record.length != 0
 }
 
 async function userIdInDB(id: string): Promise<Boolean>{
-
-  var record = await UserRepository.search()
+    const repo = await UserRepository()
+  var record = await repo.search()
   .where('id').equals(id).return.all()
 
 
@@ -220,9 +216,8 @@ async function StoreTweetInDB (tweet: FormattedTweet, tweet_from_raw_data: Tweet
     await updateTweetRecord(TweetID, tweet_from_raw_data)
 
   }else{
-
-
-  TweetRepository.createAndSave(tweet)
+      const repo = await TweetRepository();
+      await repo.createAndSave(tweet)
 }
 
 }
@@ -239,10 +234,9 @@ async function StoreUserInDB (user: FormattedUser, user_from_raw_data: User): Pr
     await updateUserRecord(UserID, user_from_raw_data)
 
   }else{
-
-
-  UserRepository.createAndSave(user)
-}
+      const repo = await UserRepository();
+      await repo.createAndSave(user)
+  }
 
 }
 
@@ -268,7 +262,7 @@ async function fetchTweets() {
     ]
   });
   
-  return tweetdata
+  return tweetdata as TwitterApiResponseData;
 
 
   
@@ -276,7 +270,7 @@ async function fetchTweets() {
 
 
 
-main()
+main().catch(err => console.error(err.stack || err.message));
 
 
 

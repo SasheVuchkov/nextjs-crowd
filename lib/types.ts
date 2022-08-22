@@ -68,7 +68,8 @@ export type FormattedUser = {
     description: string,
     created_at: string,
     verified: boolean,
-    score: number
+    score: number,
+    entities: string,
 }
 
 export type Stat = {
