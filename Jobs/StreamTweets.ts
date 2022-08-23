@@ -5,7 +5,6 @@ import { TweetPublicMetrics, Tweet, FormattedUser, FormattedTweet, User, Twitter
 import {getRedisClient} from '../lib/dbs/redis/client'
 config({path: './.env.local'})
 
-if (process.env.BearerTOKEN){
 
 var TOKEN: string = process.env.BearerTOKEN
 }else{
