@@ -1,6 +1,6 @@
 
 import {Entity, Schema} from 'redis-om';
-import {makeClient} from '../client';
+import {getRedisClient} from '../client';
 
 export class Register extends Entity {}
 
@@ -12,7 +12,7 @@ export const registerSchema = new Schema(Register, {
 })
 
 export const getRegisterRepository = async () => {
-    const client = await makeClient();
+    const client = await getRedisClient();
     const repository = client.fetchRepository(registerSchema);
     await repository.createIndex();
 

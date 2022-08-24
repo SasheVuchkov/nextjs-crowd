@@ -1,12 +1,12 @@
 import {Card} from 'react-bootstrap';
 import {follower, heart, reply, retweet} from '../../lib/icons';
-import {User as UserEntity} from '../../lib/types';
+import {FormattedUser} from '../../lib/types';
 import {applyUserDescriptionEntities, colorMentions, formatContent} from '../../lib/utils/formatContent';
 import {CardStat} from '../stats/CardStat';
 import Avatar from '../common/Avatar';
 
 export type Props = {
-    data: UserEntity,
+    data: FormattedUser,
     onClick?: () => void,
 }
 
@@ -23,7 +23,7 @@ export default function User({data, onClick}: Props) {
                     </span>
 
                     <div className="d-flex ms-1 ms-lg-0">
-                        <CardStat stat={data.public_metrics.followers_count} icon={follower} />
+                        <CardStat stat={data.followers_count} icon={follower} />
                         <CardStat className="ms-3" stat={0} icon={heart} />
                         <CardStat className="ms-3" stat={0} icon={retweet} />
                         <CardStat className="ms-3" stat={0} icon={reply} />

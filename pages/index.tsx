@@ -1,23 +1,19 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import {Button, CloseButton, Col, Modal, Row} from 'react-bootstrap';
-
-import styles from '../styles/Home.module.css'
-import {CurrentStats, Tweet as TweetType, User as UserType} from '../lib/types';
+import {CurrentStats, FormattedUser, TwitterApiResponseData} from '../lib/types';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
 import User from '../components/entities/User';
 import Layout from '../components/common/Layout';
 import {calcBatchTweetStats, calcBatchUserStats} from '../lib/utils/stats';
 import {getRecentTweets} from '../lib/repos/tweets';
-import Tweet from '../components/entities/Tweet';
 import {useState} from 'react';
 import UserDetails from '../components/modals/UserDetails';
 
-const Home: NextPage<{ users: UserType[], tweets: TweetType[] } & {stats: CurrentStats}> = ({users, tweets, stats}) => {
-    const [selectedUser, setSelectedUser] = useState<UserType|null>(null);
-
-  return (
+const Home: NextPage<{ users: FormattedUser[] } & {stats: CurrentStats}> = ({users, stats}) => {
+    const [selectedUser, setSelectedUser] = useState<FormattedUser|null>(null);
+    return (
     <>
       <Head>
         <title>Create Next App</title>
@@ -76,5 +72,5 @@ export const getServerSideProps = async () => {
         users: calcBatchUserStats(data.users, tweetStats),
     }
 
-    return {props: {...data, stats: currentStats}};
+    return {props: {tweets: data.tweets, users: data.users, stats: currentStats}};
 }

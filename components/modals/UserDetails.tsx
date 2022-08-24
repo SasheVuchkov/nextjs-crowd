@@ -1,11 +1,11 @@
 import React, {useEffect, useRef} from 'react';
 import {CloseButton, Modal} from 'react-bootstrap';
 import Tweet from '../entities/Tweet';
-import {User} from '../../lib/types';
+import {FormattedUser, User} from '../../lib/types';
 import {getTwitterProfileUrl} from '../../lib/utils/tweets';
 
 export type Props = {
-    user: User;
+    user: FormattedUser;
     onClose: () => void;
 }
 

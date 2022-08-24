@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+    "target": "es2017",
+        "lib": [
+        "dom",
+        "dom.iterable",
+        "esnext"
+    ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": false,
+        "esModuleInterop": false,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "incremental": true,
+        "outDir": "../dist-job"
+},
+    "include": [
+        "../next-env.d.ts",
+        "./*.ts",
+    ],
+    "exclude": [
+        "../node_modules"
+    ]
+}
