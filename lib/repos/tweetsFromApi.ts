@@ -43,10 +43,6 @@ export async function fetchTweetsFromDB(offset: number){
                 }
               })
 
-      const redisClient = await getRedisClient()
-
-      await redisClient.close()
-
       return formatted_result
 
 }
@@ -100,10 +96,6 @@ export async function fetchUserFromDB(offset: number){
                 }
               })
 
-      const redisClient = await getRedisClient()
-
-      await redisClient.close()
-
       return formatted_result
 
 
@@ -115,6 +107,9 @@ export async function fetchDataFromDB (offset: number){
   
   const tweetData = await fetchTweetsFromDB(offset)
   
+  const redisClient = await getRedisClient()
+
+  await redisClient.close()
   
   return { tweets: tweetData, users: userData }
 
