@@ -13,4 +13,3 @@ export const getRecentTweets = async (maxResults: number = 100): Promise<any> =>
     }
 }
 
-

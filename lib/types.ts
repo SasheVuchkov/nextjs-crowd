@@ -12,7 +12,9 @@ export type Tweet = {
     text: string,
     created_at: string,
     public_metrics: TweetPublicMetrics,
-    user?: User,
+    entities: string
+
+
 }
 
 export type FormattedTweet = {
@@ -20,8 +22,13 @@ export type FormattedTweet = {
     author_id: string,
     text: string,
     created_at: string,
-    score: number
-    // user?: User,
+    score: number,
+    entities: string,
+    retweet_count: number, 
+    reply_count: number, 
+    like_count: number, 
+    quote_count: number,
+    user: User| null
 }
 
 export type MediaItem = {
@@ -55,6 +62,7 @@ export type User = {
     profile_image_url: string,
     description: string,
     created_at: string,
+    entities: string,
     verified: boolean,
     public_metrics: UserPublicMetrics
 }
@@ -68,8 +76,13 @@ export type FormattedUser = {
     description: string,
     created_at: string,
     verified: boolean,
-    score: number,
-    entities: string,
+    score: number
+    followers_count: number,
+    following_count: number,
+    tweet_count: number,
+    listed_count: number,
+    entities: string
+    tweets: Tweet| null
 }
 
 export type Stat = {
@@ -111,7 +124,7 @@ export type Meta = {
     newest_id: string,
     oldest_id: string,
     result_count: number,
-    next_token?: string
+    next_token: string| null
 }
 
 export type TwitterApiResponseData = {
