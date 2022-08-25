@@ -1,5 +1,4 @@
-import * as cron from 'node-cron';
-import {closeRedisConnection, getRedisClient} from '../lib/dbs/redis/client';
+import {closeRedisConnection} from '../lib/dbs/redis/client';
 import { TwitterApiResponseData, Tweet, User, FormattedTweet, FormattedUser } from "../lib/types";
 import { fetchTweets } from "../lib/utils/streamTweetsUtils/fetchTweets";
 import { getFormattedTweetObject, getFormattedUserObject } from "../lib/utils/streamTweetsUtils/formatData";
@@ -8,7 +7,7 @@ import makeFetchTweetsConfig from '../lib/utils/streamTweetsUtils/makeFetchTweet
 import {calcStats} from '../lib/utils/streamTweetsUtils/calcScores';
 import {fetchUsersFromDB} from '../lib/utils/streamTweetsUtils/fetchRecords';
 
-async function main(): Promise<void>{
+export default async function main(): Promise<void>{
   console.log('Fetching new tweets...');
 
   const response: TwitterApiResponseData = await fetchTweets(makeFetchTweetsConfig(100,  2));
@@ -62,12 +61,6 @@ async function main(): Promise<void>{
   }
   console.log('Finished processing the new tweets');
 }
-
-console.log('Scheduling a cron job...')
-cron.schedule('* * * * *', () => {
-  main().catch(err => console.error(err.stack || err.message));
-})
-
 
 
 
