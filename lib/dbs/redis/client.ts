@@ -1,11 +1,9 @@
 import { Client } from 'redis-om'
-import {config} from 'dotenv'
-config({path: './.env.local'})
 
 const url = process.env.REDIS_URL
 let redisClient: Client|undefined;
 
-export const getRedisClient = async() => {
+export async function getRedisClient() {
     if (!redisClient) {
         redisClient = new Client();
     }
@@ -15,4 +13,15 @@ export const getRedisClient = async() => {
     }
 
     return redisClient;
+}
+
+export async function flushAll() {
+    const client = await getRedisClient();
+    return client.execute(['FLUSHALL']);
+}
+
+export async function closeRedisConnection() {
+    if (redisClient && redisClient.isOpen()) {
+        await redisClient.close();
+    }
 }

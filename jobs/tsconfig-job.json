@@ -18,13 +18,15 @@
         "isolatedModules": true,
         "jsx": "preserve",
         "incremental": true,
-        "outDir": "../dist-job"
+        "outDir": "../dist"
 },
     "include": [
         "../next-env.d.ts",
         "./*.ts",
     ],
     "exclude": [
-        "../node_modules"
+        "../node_modules",
+        "./node_modules",
+        "../lib/mocks",
     ]
 }

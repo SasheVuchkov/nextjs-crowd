@@ -1,70 +1,84 @@
 import { EntityData } from "redis-om";
-import { TweetRepository, UserRepository } from "../../dbs/redis/repository";
+import { getTweetRepository, getUserRepository } from "../../dbs/redis/repository";
 import { FormattedTweet, Tweet, FormattedUser, User } from "../../types";
 import { updateTweetRecord, updateUserRecord } from "./updateRecord";
+import {EntityTweet, EntityUser} from '../../dbs/redis/entities';
 
 
 
-async function tweetIdInDB(id: string): Promise<Boolean>{
+async function tweetIdInDB(id: string): Promise<EntityTweet|undefined>{
 
-    const repo = await TweetRepository();
+    const repo = await getTweetRepository();
 
-  const record = await repo.search()
-  .where('id').equals(id).return.all()
+    const record = await repo.search().where('id').equals(id).return.all()
 
-    return record.length != 0
+    return record.shift();
 }
 
 
-async function userIdInDB(id: string): Promise<Boolean>{
+async function userIdInDB(id: string): Promise<EntityUser|undefined>{
 
-    const repo = await UserRepository()
+    const startDate = new Date();
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setHours(0);
+
+
+    const repo = await getUserRepository()
   let record = await repo.search()
-  .where('id').equals(id).return.all()
+  .where('id').equals(id).where('created_at_date').gt(startDate).return.all()
 
-
-  if (record.length != 0){
-
-    return true
-  }
-
-return false
+    return record.shift();
 }
 
 
 
 
-export async function storeTweetInDB (tweet: FormattedTweet, tweet_from_raw_data: Tweet): Promise<void>{
+export async function storeTweetInDB (tweet: FormattedTweet): Promise<void>{
 
     let TweetID = tweet['id']
-  
-    let TweetIdInDB = await tweetIdInDB(TweetID)
-  
-    if (TweetIdInDB) {
-  
-      await updateTweetRecord(TweetID, tweet_from_raw_data)
-  
+
+    let tweetEntity = await tweetIdInDB(TweetID)
+
+    if (tweetEntity) {
+        tweetEntity.score = tweet.score;
+        tweetEntity.like_count = tweet.like_count;
+        tweetEntity.reply_count = tweet.reply_count;
+        tweetEntity.retweet_count = tweet.retweet_count;
+        tweetEntity.quote_count = tweet.quote_count;
+      await updateTweetRecord(tweetEntity)
+
     }else{
-        const repo = await TweetRepository();
+        const repo = await getTweetRepository();
         await repo.createAndSave(tweet as unknown as EntityData)
   }
-  
+
   }
-  
-  export async function storeUserInDB (user: FormattedUser, user_from_raw_data: User): Promise<void>{
-  
-    let UserID = user['id']
-  
-    let UserIdInDB = await userIdInDB(UserID)
-  
-  
-    if (UserIdInDB) {
-  
-      await updateUserRecord(UserID, user_from_raw_data)
-  
+
+  export async function storeUserInDB (user: FormattedUser): Promise<void>{
+
+    let userInDB = await userIdInDB(user['id'])
+
+
+    if (userInDB) {
+        userInDB.score = (userInDB.score + user.score) / 2;
+        userInDB.name = user.name;
+        userInDB.username = user.username;
+        userInDB.url = user.url;
+        userInDB.following_count = user.following_count;
+        userInDB.followers_count = user.followers_count;
+        userInDB.description = user.description;
+        userInDB.profile_image_url = user.profile_image_url;
+        userInDB.verified = user.verified;
+        userInDB.tweet_count = user.tweet_count;
+        userInDB.like_count = user.listed_count;
+        userInDB.entities = user.entities;
+
+      await updateUserRecord(userInDB)
+
     }else{
-        const repo = await UserRepository();
+        const repo = await getUserRepository();
         await repo.createAndSave(user as unknown as EntityData)
     }
-  
+
   }
