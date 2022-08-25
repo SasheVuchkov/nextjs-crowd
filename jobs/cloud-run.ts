@@ -1,7 +1,7 @@
 import * as express from 'express';
 import job from './job';
 
-const PORT: number = parseInt(process.env.PORT) || 3004;
+const PORT: number = parseInt(process.env.PORT) || 8080;
 const app = express();
 
 app.use(express.json());
