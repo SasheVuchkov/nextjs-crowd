@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import job from './job';
 
 const PORT: number = parseInt(process.env.PORT) || 8080;

@@ -8,7 +8,7 @@
     "lint": "next lint",
     "build-job": "tsc -p ./jobs/tsconfig-job.json",
     "job": "node -r dotenv/config ./dist/jobs/js-cron.js dotenv_config_path=./.env.job.local",
-    "cloud-run": "node -r dotenv/config ./dist/jobs/cloud-run.js dotenv_config_path=./.env.job.local",
+    "cloud-run": "node -r dotenv/config ./dist/jobs/cloud-run.js dotenv_config_path=./.env.job",
     "combo": "npm run dev & npm run job",
     "combo-start": "npm start & npm run job"
   },

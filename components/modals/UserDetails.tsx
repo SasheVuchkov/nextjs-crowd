@@ -33,7 +33,7 @@ export default function UserDetails({user, onClose}: Props) {
 
         (window as any).twemoji.parse(headerRef.current);
         (window as any).twemoji.parse(bodyRef.current);
-    }, [user.id]);
+    }, [user]);
 
     return (
             <Modal show={true} size="lg" contentClassName="user-details" onHide={onClose} >
@@ -41,7 +41,7 @@ export default function UserDetails({user, onClose}: Props) {
                     <div className="d-flex">
                         <img src={user.profile_image_url} style={{borderRadius: '50%'}} />
                         <div className="ms-2 d-flex flex-column">
-                            <span className="h6 mb-0"><span>{user.name}</span>'s Tweets</span>
+                            <span className="h6 mb-0"><span>{user.name}</span>&apos;s Tweets</span>
                             <a href={getTwitterProfileUrl(user)} className="focus-color"><small>Open profile in Twitter</small></a>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ export default function UserDetails({user, onClose}: Props) {
                 </Modal.Header>
                 <Modal.Body ref={bodyRef}>
                     {ownTweets && ownTweets.map(tweet => <Tweet key={tweet.id} data={tweet} onClick={() => window.open(getTweetUrl(tweet), '_blank')}  />)}
-                    {ownTweets && ownTweets.length < 1 && <div>Can't find any tweets...</div>}
+                    {ownTweets && ownTweets.length < 1 && <div>Can&apos;t find any tweets...</div>}
                     {!ownTweets && <div><Spinner animation={'grow'} size="sm" /> Loading...</div>}
                 </Modal.Body>
             </Modal>

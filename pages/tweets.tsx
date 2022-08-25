@@ -66,7 +66,7 @@ const Tweets: NextPage<{tweets: FormattedTweet[], stats: TweetStats}> = ({tweets
             <Row className="gx-0">
                 <Col lg={6} className="px-1 px-lg-3 mt-5 mb-4 offset-lg-3 text-center">
                     <Title prefix="All" className="mt-2 animated-text">Tweets</Title>
-                    <p className="animated-text">Here is a list of all collected tweets that mention Next.Js, sorted by "score" - the sum of all likes, retweets, quotes and replies.</p>
+                    <p className="animated-text">Here is a list of all collected tweets that mention Next.Js, sorted by &quot;score&quot; - the sum of all likes, retweets, quotes and replies.</p>
                 </Col>
             </Row>
             <Row className="gx-0">
