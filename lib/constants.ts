@@ -3,7 +3,7 @@ import {AboutStats, StatsRegister} from './types';
 export const aboutStats: AboutStats = {
     developers_num: 2,
     tech_used: 8,
-    invested_hours: 165,
+    invested_hours: 348,
     code_lines: 2006,
 }
 

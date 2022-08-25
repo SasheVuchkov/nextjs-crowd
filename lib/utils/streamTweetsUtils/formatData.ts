@@ -34,7 +34,7 @@ export async function getFormattedUserObject(user: User, tweets: FormattedTweet[
   
   user_copy['tweets'] =  null
   user_copy['score'] = calcUserScore(user, tweets)
-  user_copy['created_at_date'] = new Date(user_copy['created_at'])
+  user_copy['saved_at_date'] = new Date()
 
   let counts = tweets.reduce((prev, current) => {
       return {

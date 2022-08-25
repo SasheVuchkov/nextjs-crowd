@@ -2,14 +2,16 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import {Button, Col, Row} from 'react-bootstrap';
 
-import {CurrentStats} from '../lib/types';
+import {CurrentStats, FormattedTweet, TweetStats} from '../lib/types';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
 import Tweet from '../components/entities/Tweet';
 import Layout from '../components/common/Layout';
 import {getTweetUrl} from '../lib/utils/tweets';
+import {statsInDB} from '../lib/utils/streamTweetsUtils/storeData';
+import {fetchTweetsFromDB} from '../lib/utils/streamTweetsUtils/fetchRecords';
 
-const Home: NextPage<any & {stats: CurrentStats}> = ({tweets, stats}) => {
+const Home: NextPage<{tweets: FormattedTweet[], stats: TweetStats}> = ({tweets, stats}) => {
   return (
     <>
       <Head>
@@ -21,7 +23,7 @@ const Home: NextPage<any & {stats: CurrentStats}> = ({tweets, stats}) => {
         <Layout className={`layout animation tweets`}>
             <Row className="gx-0">
                 <Col lg={6} className="col-stats">
-                    <Banner className="mt-5 mt-lg-0" title={<Title prefix="Tweets" className="top-50 text-center">Stats</Title>} stats={stats.tweets} />
+                    <Banner className="mt-5 mt-lg-0" title={<Title prefix="Tweets" className="top-50 text-center">Stats</Title>} stats={stats} />
                 </Col>
 
                 <Col lg={6} className="px-1 px-lg-3 mt-5 mt-lg-0">
@@ -61,20 +63,14 @@ export default Home
 
 
 export const getServerSideProps = async () => {
-    const stats: CurrentStats = {
-        tweets: {
-            total_tweets: 100,
-            total_likes: 100,
-            total_replies: 100,
-            total_retweets: 100,
-        },
-        users: {
-            total_users: 100,
-            total_engagement: 100,
-            total_engagement_rate: '10%',
-            total_followers: 100,
-        }
+    const allStats = await statsInDB();
+    const tweetStats: TweetStats = {
+        total_tweets: allStats?.total_tweets || 0,
+        total_likes: allStats?.total_likes || 0,
+        total_replies: allStats?.total_replies || 0,
+        total_retweets: allStats?.total_retweets || 0,
     }
 
-    return {props: {tweets: [], users: [], stats: stats}};
+    const tweets = await fetchTweetsFromDB(0, 15);
+    return {props: {tweets: tweets, stats: tweetStats}};
 }

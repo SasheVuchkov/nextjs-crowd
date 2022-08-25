@@ -1,5 +1,5 @@
 import { getRedisClient } from './client'
-import { tweetSchema, userSchema } from './schema'
+import {statsSchema, tweetSchema, userSchema} from './schema'
 
 
 export const getTweetRepository = async () => {
@@ -18,4 +18,11 @@ export const getUserRepository = async () => {
 
     return repo;
 }
-   
+
+export const getStatsRepository = async () => {
+    const client = await getRedisClient();
+    const repo = client.fetchRepository(statsSchema);
+    await repo.createIndex()
+
+    return repo;
+}

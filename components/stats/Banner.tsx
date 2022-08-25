@@ -1,11 +1,11 @@
 import React from 'react';
 import Snippet from './Snippet';
-import {TweetStats, UserStats} from '../../lib/types';
+import {AboutStats, TweetStats, UserStats} from '../../lib/types';
 import {statsRegister} from '../../lib/constants';
 
 export type Props = {
     title: string|JSX.Element,
-    stats: UserStats|TweetStats,
+    stats: UserStats|TweetStats|AboutStats,
     className?: string,
 }
 

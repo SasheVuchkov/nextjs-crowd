@@ -1,15 +1,17 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import {Button, CloseButton, Col, Modal, Row} from 'react-bootstrap';
-import {CurrentStats, FormattedUser} from '../lib/types';
+import {CurrentStats, FormattedUser, UserStats} from '../lib/types';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
 import User from '../components/entities/User';
 import Layout from '../components/common/Layout';
 import {useState} from 'react';
 import UserDetails from '../components/modals/UserDetails';
+import {statsInDB} from '../lib/utils/streamTweetsUtils/storeData';
+import {fetchUsersFromDB} from '../lib/utils/streamTweetsUtils/fetchRecords';
 
-const Home: NextPage<{ users: FormattedUser[] } & {stats: CurrentStats}> = ({users, stats}) => {
+const Home: NextPage<{ users: FormattedUser[] } & {stats: UserStats}> = ({users, stats}) => {
     const [selectedUser, setSelectedUser] = useState<FormattedUser|null>(null);
     return (
     <>
@@ -24,7 +26,7 @@ const Home: NextPage<{ users: FormattedUser[] } & {stats: CurrentStats}> = ({use
             }} />}
             <Row className="gx-0">
                 <Col lg={6} className="col-stats">
-                    <Banner className="mt-5 mt-lg-0" title={<Title prefix="Users" className="top-50 text-center">Stats</Title>} stats={stats.users} />
+                    <Banner className="mt-5 mt-lg-0" title={<Title prefix="Users" className="top-50 text-center">Stats</Title>} stats={stats} />
                 </Col>
 
                 <Col lg={6} className="px-3 mt-5 mt-lg-0">
@@ -63,20 +65,14 @@ export default Home
 
 export const getServerSideProps = async () => {
 
-    const stats: CurrentStats = {
-        tweets: {
-          total_tweets: 100,
-          total_likes: 100,
-          total_replies: 100,
-          total_retweets: 100,
-        },
-        users: {
-            total_users: 100,
-            total_engagement: 100,
-            total_engagement_rate: '10%',
-            total_followers: 100,
-        }
+    const allStats = await statsInDB();
+    const stats: UserStats = {
+        total_users: allStats?.total_users || 0,
+        total_followers: allStats?.total_followers || 0,
+        total_engagement: allStats?.total_engagement || 0,
+        total_engagement_rate: allStats?.total_engagement_rate || '0%',
     }
 
-    return {props: {tweets: [], users: [], stats: stats}};
+    const users = await fetchUsersFromDB(0, 15);
+    return {props: {users: users, stats: stats}};
 }

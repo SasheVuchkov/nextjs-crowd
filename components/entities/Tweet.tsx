@@ -1,6 +1,6 @@
 import {Card} from 'react-bootstrap';
-import {follower, heart, reply, retweet} from '../../lib/icons';
-import {Tweet as TweetEntity} from '../../lib/types';
+import {heart, reply, retweet} from '../../lib/icons';
+import {FormattedTweet} from '../../lib/types';
 import {
     applyTweetEntities,
 } from '../../lib/utils/formatContent';
@@ -8,7 +8,7 @@ import {CardStat} from '../stats/CardStat';
 import Avatar from '../common/Avatar';
 
 export type Props = {
-    data: TweetEntity,
+    data: FormattedTweet,
     onClick?: () => void,
 }
 
@@ -25,9 +25,9 @@ export default function Tweet({data, onClick}: Props) {
                     </span>
 
                     <div className="d-flex ms-1 ms-lg-0">
-                        <CardStat className="ms-3" stat={data.public_metrics.like_count} icon={heart} />
-                        <CardStat className="ms-3" stat={data.public_metrics.like_count} icon={retweet} />
-                        <CardStat className="ms-3" stat={data.public_metrics.like_count} icon={reply} />
+                        <CardStat className="ms-3" stat={data.like_count} icon={heart} />
+                        <CardStat className="ms-3" stat={data.retweet_count + data.quote_count} icon={retweet} />
+                        <CardStat className="ms-3" stat={data.reply_count} icon={reply} />
                     </div>
 
                 </div>

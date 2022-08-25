@@ -1,21 +1,14 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import {Button, Col, Row} from 'react-bootstrap';
-
-import styles from '../styles/Home.module.css'
-import {CurrentStats, TwitterApiResponseData} from '../lib/types';
+import {Col, Row} from 'react-bootstrap';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
-import Tweet from '../components/entities/Tweet';
 import Layout from '../components/common/Layout';
-import {getRecentTweets} from '../lib/repos/tweets';
-import {calcBatchTweetStats, calcBatchUserStats} from '../lib/utils/stats';
-import {getTweetUrl} from '../lib/utils/tweets';
 import {aboutStats} from '../lib/constants';
 import Creator from '../components/entities/Creator';
 
 
-const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets, stats}) => {
+const Home: NextPage = () => {
   return (
     <>
       <Head>
@@ -61,16 +54,3 @@ const Home: NextPage<TwitterApiResponseData & {stats: CurrentStats}> = ({tweets,
 }
 
 export default Home
-
-
-export const getServerSideProps = async () => {
-    const data = await getRecentTweets();
-
-    const tweetStats = calcBatchTweetStats(data.tweets);
-    const currentStats: CurrentStats = {
-        tweets: tweetStats,
-        users: calcBatchUserStats(data.users, tweetStats),
-    }
-
-    return {props: {...data, stats: currentStats}};
-}

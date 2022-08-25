@@ -85,6 +85,17 @@ export type FormattedUser = {
     tweets: Tweet[]
 }
 
+export type FormattedStats = {
+    total_tweets: number;
+    total_likes: number;
+    total_retweets: number;
+    total_replies: number;
+    total_users: number;
+    total_followers: number;
+    total_engagement: number;
+    total_engagement_rate: string;
+}
+
 export type Stat = {
     name: string,
     description: string,

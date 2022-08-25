@@ -1,5 +1,19 @@
 import { Entity } from 'redis-om'
 
+
+export class EntityStats extends Entity {
+  created_at: string;
+  created_at_date: Date;
+  total_tweets: number;
+  total_likes: number;
+  total_retweets: number;
+  total_replies: number;
+  total_users: number;
+  total_followers: number;
+  total_engagement: number;
+  total_engagement_rate: string;
+}
+
 export class EntityUser extends Entity{
   score: number;
   followers_count: number;
@@ -17,7 +31,7 @@ export class EntityUser extends Entity{
   profile_image_url: string;
   description: string;
   created_at: string;
-  created_at_date: Date;
+  saved_at_date: Date;
   verified: boolean;
   entities: string;
 }
@@ -34,4 +48,5 @@ export class EntityTweet extends Entity{
   created_at: string;
   created_at_date: Date;
   entities: string;
+  author_id: string;
 }
