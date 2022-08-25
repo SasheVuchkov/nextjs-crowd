@@ -53,7 +53,8 @@ a {
 }
 
 
-.index .no-avatar {
+.index .no-avatar,
+.index .spinner {
   background-color: #ff6831;
 }
 
@@ -110,7 +111,8 @@ a {
 }
 
 
-.tweets .no-avatar {
+.tweets .no-avatar,
+.tweets .spinner {
   background-color: #028494;
 }
 

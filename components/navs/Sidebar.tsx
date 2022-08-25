@@ -1,6 +1,7 @@
+import React from 'react';
 import {Nav} from 'react-bootstrap';
 import Link from './Link';
-import {barChart, coffee, edit, follower, linkedin} from '../../lib/icons';
+import {coffee, edit, follower, linkedin} from '../../lib/icons';
 
 export default function Sidebar() {
     return (

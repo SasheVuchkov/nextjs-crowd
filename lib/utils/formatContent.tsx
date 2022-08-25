@@ -1,5 +1,19 @@
 import {Entity, FormattedTweet, FormattedUser} from '../types';
 
+export const formatStat = (stat: number|string) => {
+    if (typeof stat === 'string') {
+        return stat;
+    }
+
+    if (stat > 1000 && stat < 99999) {
+        return (stat/1000).toFixed(1) + 'K';
+    } else if (stat > 99999) {
+        return (stat/1000).toFixed(0) + 'K';
+    }
+
+    return stat;
+}
+
 export const applyEntities = (html: string, entities: Record<string, Entity[]>) => {
     ['urls', 'hashtags', 'mentions'].forEach((entity: string) => {
         if (typeof entities[entity] === 'undefined') {

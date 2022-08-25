@@ -11,7 +11,7 @@ import {fetchUsersFromDB} from '../lib/utils/streamTweetsUtils/fetchRecords';
 async function main(): Promise<void>{
   console.log('Fetching new tweets...');
 
-  const response: TwitterApiResponseData = await fetchTweets(makeFetchTweetsConfig(100,  100));
+  const response: TwitterApiResponseData = await fetchTweets(makeFetchTweetsConfig(100,  2));
 
   console.log('Just fetched new tweets...', response.meta);
     
@@ -26,6 +26,11 @@ async function main(): Promise<void>{
       let tweet: Tweet=tweets[x]
 
       let formattedTweet: FormattedTweet= getFormattedTweetObject(tweet)
+
+      if (formattedTweet.text.indexOf('RT @') === 0) {
+        continue;
+      }
+
       formattedTweets.push(formattedTweet);
       await storeTweetInDB (formattedTweet)
   }
@@ -35,6 +40,10 @@ async function main(): Promise<void>{
     for(let y=0;y<users.length;y++){
       let user: User=users[y]
       let ownTweets = formattedTweets.filter(tweet => tweet.author_id === users[y].id);
+
+      if (!ownTweets.length) {
+        continue;
+      }
 
       let formattedUser: FormattedUser = await getFormattedUserObject(user, ownTweets)
       await storeUserInDB(formattedUser)
@@ -54,6 +63,7 @@ async function main(): Promise<void>{
   console.log('Finished processing the new tweets');
 }
 
+console.log('Scheduling a cron job...')
 cron.schedule('* * * * *', () => {
   main().catch(err => console.error(err.stack || err.message));
 })

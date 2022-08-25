@@ -1,8 +1,8 @@
-import React, {useEffect, useRef} from 'react';
-import {CloseButton, Modal} from 'react-bootstrap';
+import React, {useEffect, useRef, useState} from 'react';
+import {CloseButton, Modal, Spinner} from 'react-bootstrap';
 import Tweet from '../entities/Tweet';
-import {FormattedUser, User} from '../../lib/types';
-import {getTwitterProfileUrl} from '../../lib/utils/tweets';
+import {FormattedTweet, FormattedUser, User} from '../../lib/types';
+import {getTweetUrl, getTwitterProfileUrl} from '../../lib/utils/tweets';
 
 export type Props = {
     user: FormattedUser;
@@ -13,7 +13,20 @@ export default function UserDetails({user, onClose}: Props) {
     const headerRef = useRef<HTMLDivElement|null>(null);
     const bodyRef = useRef<HTMLDivElement|null>(null);
 
+    const [ownTweets, setOwnTweets] = useState<FormattedTweet[]|null>(null);
+
     useEffect(() => {
+        setOwnTweets(null);
+
+        fetch(`/api/tweets/user/${user.id}`).then(response => {
+            if (response.ok) {
+                response.json().then(data => {
+                    const tweets = data.tweets.map(tweet => ({...tweet, user: user}));
+                    setOwnTweets(tweets);
+                }).catch(err => console.error(err));
+            }
+        }).catch(err => console.error(err));
+
         if (!headerRef.current || !window || ! (window as any).twemoji) {
             return;
         }
@@ -35,7 +48,9 @@ export default function UserDetails({user, onClose}: Props) {
                     <CloseButton variant="white" onClick={onClose} />
                 </Modal.Header>
                 <Modal.Body ref={bodyRef}>
-                    {user.tweets && user.tweets.map(tweet => <Tweet key={tweet.id} data={tweet}  />)}
+                    {ownTweets && ownTweets.map(tweet => <Tweet key={tweet.id} data={tweet} onClick={() => window.open(getTweetUrl(tweet), '_blank')}  />)}
+                    {ownTweets && ownTweets.length < 1 && <div>Can't find any tweets...</div>}
+                    {!ownTweets && <div><Spinner animation={'grow'} size="sm" /> Loading...</div>}
                 </Modal.Body>
             </Modal>
     );

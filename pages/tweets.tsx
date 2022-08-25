@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import {Button, Col, Row} from 'react-bootstrap';
 
-import {CurrentStats, FormattedTweet, TweetStats} from '../lib/types';
+import {CurrentStats, FormattedTweet, FormattedUser, TweetStats} from '../lib/types';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
 import Tweet from '../components/entities/Tweet';
@@ -10,8 +10,37 @@ import Layout from '../components/common/Layout';
 import {getTweetUrl} from '../lib/utils/tweets';
 import {statsInDB} from '../lib/utils/streamTweetsUtils/storeData';
 import {fetchTweetsFromDB} from '../lib/utils/streamTweetsUtils/fetchRecords';
+import {closeRedisConnection} from '../lib/dbs/redis/client';
+import {useState} from 'react';
+import LoadButton from '../components/common/LoadButton';
+import {cacheControlValue} from '../lib/constants';
 
-const Home: NextPage<{tweets: FormattedTweet[], stats: TweetStats}> = ({tweets, stats}) => {
+const Tweets: NextPage<{tweets: FormattedTweet[], stats: TweetStats}> = ({tweets, stats}) => {
+
+    const [page, setPage] = useState<number|null>(1);
+    const [pageTweets, setPageTweets] = useState<FormattedTweet[]>([...tweets]);
+    const [loading, setLoading] = useState(false);
+
+    const nextPage = () => {
+        setLoading(true);
+
+        fetch(`/api/tweets/${page}`).then(response => {
+            setLoading(false);
+            if (response.ok) {
+                response.json().then(data => {
+                    if (!data.tweets?.length) {
+                        setPage(null);
+                        return;
+                    }
+
+                    setPageTweets([...pageTweets, ...data.tweets]);
+                    setPage(page + 1);
+
+                }).catch(err => console.error(err));
+            }
+        }).catch(err => console.error(err));
+    }
+
   return (
     <>
       <Head>
@@ -41,7 +70,7 @@ const Home: NextPage<{tweets: FormattedTweet[], stats: TweetStats}> = ({tweets, 
                 </Col>
             </Row>
             <Row className="gx-0">
-                {tweets && tweets.slice(0, 10).map(tweet =>
+                {pageTweets.map(tweet =>
                     <Col key={tweet.id} lg={6} className="px-1 px-lg-3">
                         <Tweet data={tweet} onClick={() => {
                             window.open(getTweetUrl(tweet), 'blank');
@@ -51,7 +80,9 @@ const Home: NextPage<{tweets: FormattedTweet[], stats: TweetStats}> = ({tweets, 
             </Row>
             <Row className="gx-0">
                 <Col lg={6} className="offset-lg-3 px-1 px-lg-3 animated-text">
-                    <Button variant="outline-light" className="w-100 load-more" >Load More</Button>
+                    <LoadButton loading={loading} page={page} onClick={nextPage}>
+                        Load More
+                    </LoadButton>
                 </Col>
             </Row>
         </Layout>
@@ -59,10 +90,12 @@ const Home: NextPage<{tweets: FormattedTweet[], stats: TweetStats}> = ({tweets, 
   )
 }
 
-export default Home
+export default Tweets
 
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({res}) => {
+    res.setHeader('Cache-Control', cacheControlValue);
+
     const allStats = await statsInDB();
     const tweetStats: TweetStats = {
         total_tweets: allStats?.total_tweets || 0,
@@ -72,5 +105,7 @@ export const getServerSideProps = async () => {
     }
 
     const tweets = await fetchTweetsFromDB(0, 15);
+    await closeRedisConnection();
+
     return {props: {tweets: tweets, stats: tweetStats}};
 }

@@ -1,5 +1,6 @@
+import React from 'react';
 import Navbar from '../navs/Navbar';
-import {Button, Col, Container, Row} from 'react-bootstrap';
+import {Col, Container, Row} from 'react-bootstrap';
 import Sidebar from '../navs/Sidebar';
 import {CSSProperties, PropsWithChildren, useEffect, useRef} from 'react';
 

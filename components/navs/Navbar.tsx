@@ -1,4 +1,5 @@
-import {Container, Nav, NavDropdown, Navbar as NavbarBase} from 'react-bootstrap';
+import React from 'react';
+import {Container, Nav, Navbar as NavbarBase} from 'react-bootstrap';
 import Link from './Link';
 import {coffee, edit, follower, linkedin} from '../../lib/icons';
 

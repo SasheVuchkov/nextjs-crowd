@@ -1,10 +1,5 @@
+import React from 'react';
 import {Card} from 'react-bootstrap';
-import {follower, heart, reply, retweet} from '../../lib/icons';
-import {Tweet as TweetEntity} from '../../lib/types';
-import {
-    applyTweetEntities,
-} from '../../lib/utils/formatContent';
-import {CardStat} from '../stats/CardStat';
 import Avatar from '../common/Avatar';
 
 export type Props = {
@@ -20,7 +15,7 @@ export type Props = {
 //TODO: Create components for the counters
 export default function Creator({data, onClick}: Props) {
     return (
-        <Card key={data.id} className={`mb-4 shadow bg-nav`} onClick={onClick}>
+        <Card key={data.name} className={`mb-4 shadow bg-nav`} onClick={onClick}>
             <Card.Header className="d-flex">
                 <Avatar src={data.profile_image_url} width={50} height={50} alt={`The avatar of ${data.name}`} />
                 <div className="user w-100 d-flex flex-column flex-lg-row align-items-start justify-content-between">

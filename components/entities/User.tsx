@@ -1,7 +1,8 @@
+import React from 'react';
 import {Card} from 'react-bootstrap';
 import {follower, heart, reply, retweet} from '../../lib/icons';
 import {FormattedUser} from '../../lib/types';
-import {applyUserDescriptionEntities, colorMentions, formatContent} from '../../lib/utils/formatContent';
+import {applyUserDescriptionEntities} from '../../lib/utils/formatContent';
 import {CardStat} from '../stats/CardStat';
 import Avatar from '../common/Avatar';
 
@@ -24,9 +25,9 @@ export default function User({data, onClick}: Props) {
 
                     <div className="d-flex ms-1 ms-lg-0">
                         <CardStat stat={data.followers_count} icon={follower} />
-                        <CardStat className="ms-3" stat={0} icon={heart} />
-                        <CardStat className="ms-3" stat={0} icon={retweet} />
-                        <CardStat className="ms-3" stat={0} icon={reply} />
+                        <CardStat className="ms-3" stat={data.like_count} icon={heart} />
+                        <CardStat className="ms-3" stat={data.retweet_count + data.quote_count} icon={retweet} />
+                        <CardStat className="ms-3" stat={data.reply_count} icon={reply} />
                     </div>
 
                 </div>

@@ -1,3 +1,4 @@
+import React from 'react';
 import {Card} from 'react-bootstrap';
 import {heart, reply, retweet} from '../../lib/icons';
 import {FormattedTweet} from '../../lib/types';
@@ -6,6 +7,7 @@ import {
 } from '../../lib/utils/formatContent';
 import {CardStat} from '../stats/CardStat';
 import Avatar from '../common/Avatar';
+import {timeAgo} from '../../lib/utils/timeAgo';
 
 export type Props = {
     data: FormattedTweet,
@@ -28,6 +30,7 @@ export default function Tweet({data, onClick}: Props) {
                         <CardStat className="ms-3" stat={data.like_count} icon={heart} />
                         <CardStat className="ms-3" stat={data.retweet_count + data.quote_count} icon={retweet} />
                         <CardStat className="ms-3" stat={data.reply_count} icon={reply} />
+                        <span className="ms-3">{timeAgo.format(new Date(data.created_at), 'mini')}</span>
                     </div>
 
                 </div>

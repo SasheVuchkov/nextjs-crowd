@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 
 export type Props = {
     width: number,

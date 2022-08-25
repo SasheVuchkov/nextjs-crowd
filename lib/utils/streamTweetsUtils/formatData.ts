@@ -8,7 +8,7 @@ export function getFormattedTweetObject(tweet: Tweet): FormattedTweet {
   
     let copy_tweet: Tweet = cloneDeep(tweet);
   
-    copy_tweet['entities'] = JSON.stringify(copy_tweet['entities']);
+    copy_tweet['entities'] = copy_tweet['entities'] ? JSON.stringify(copy_tweet['entities']) : '';
   
     copy_tweet['user'] =  null;
     copy_tweet['score'] = calcTweetScore(copy_tweet);
@@ -28,13 +28,14 @@ export async function getFormattedUserObject(user: User, tweets: FormattedTweet[
   
   let public_metric_arr = user["public_metrics"]
   
-  let user_copy: User = JSON.parse(JSON.stringify(user))
+  let user_copy: User = cloneDeep(user)
   
-  user_copy['entities'] = JSON.stringify(user_copy['entities'])
+  user_copy['entities'] = user_copy['entities'] ? JSON.stringify(user_copy['entities']) : '';
   
-  user_copy['tweets'] =  null
+  user_copy['tweets'] =  []
   user_copy['score'] = calcUserScore(user, tweets)
   user_copy['saved_at_date'] = new Date()
+  user_copy['url'] = user_copy['url'] || '';
 
   let counts = tweets.reduce((prev, current) => {
       return {
@@ -53,9 +54,6 @@ export async function getFormattedUserObject(user: User, tweets: FormattedTweet[
   delete user_copy["public_metrics"]
   
   let merge_tweetusers = Object.assign({}, public_metric_arr, user_copy)
-  
-  
   return merge_tweetusers as unknown as FormattedUser
-  
-  
+
   } 

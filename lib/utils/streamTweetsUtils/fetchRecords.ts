@@ -3,8 +3,9 @@ import {userIdInDB} from './storeData';
 import {FormattedTweet, FormattedUser} from '../../types';
 import getStartDate from '../getStartDate';
 import {EntityTweet} from '../../dbs/redis/entities';
+import {initCount} from '../../constants';
 
-export async function fetchTweetsFromDB(offset: number, count: number = 100) {
+export async function fetchTweetsFromDB(offset: number, count: number = initCount) {
   const repo = await getTweetRepository()
   const result = await repo.search().where('created_at_date').gt(getStartDate()).sortDescending('score').return.page(offset, count)
   const tweets: FormattedTweet[] = [];
@@ -27,16 +28,15 @@ export async function fetchTweetsFromDB(offset: number, count: number = 100) {
 }
 
 
-export async function fetchTweetsByUser(user: FormattedUser) {
+export async function fetchTweetsByUserId(userId: string) {
   const repo = await getTweetRepository()
 
-  const result = await repo.search().where('created_at_date').gt(getStartDate()).where('author_id').eq(user.id).sortDescending('score').return.page(0, 50)
+  const result = await repo.search().where('created_at_date').gt(getStartDate()).where('author_id').eq(userId).sortDescending('score').return.page(0, 50)
 
   const tweets: FormattedTweet[] = [];
 
   for (const tweet of result) {
     const formattedTweet = mapEntityTweet(tweet);
-    formattedTweet.user = {...user};
     tweets.push(formattedTweet);
   }
 
@@ -53,7 +53,7 @@ export function mapEntityTweet(entityTweet: EntityTweet): FormattedTweet {
   }
 }
 
-export async function fetchUsersFromDB(offset: number, count: number = 100){
+export async function fetchUsersFromDB(offset: number, count: number = initCount){
   const repo = await getUserRepository()
   const result = await repo.search().where('saved_at_date').gt(getStartDate()).sortDescending('score').return.page(offset, count)
   const users: FormattedUser[] = [];

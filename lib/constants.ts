@@ -1,5 +1,11 @@
 import {AboutStats, StatsRegister} from './types';
 
+export const perPage = 30;
+export const initCount = 15;
+
+export const ssrCacheTtl = 5*60;
+export const cacheControlValue =  `public, s-maxage=${ssrCacheTtl}, stale-while-revalidate=59`;
+
 export const aboutStats: AboutStats = {
     developers_num: 2,
     tech_used: 8,

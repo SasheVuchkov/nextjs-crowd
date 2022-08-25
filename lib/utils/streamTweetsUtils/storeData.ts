@@ -68,7 +68,7 @@ export async function storeTweetInDB (tweet: FormattedTweet): Promise<void>{
         userInDB.verified = user.verified;
         userInDB.tweet_count = user.tweet_count;
         userInDB.like_count = user.listed_count;
-        userInDB.entities = user.entities;
+        userInDB.entities = user.entities || "";
 
       await updateUserRecord(userInDB)
 

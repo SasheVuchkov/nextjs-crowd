@@ -82,7 +82,11 @@ export type FormattedUser = {
     tweet_count: number,
     listed_count: number,
     entities: string
-    tweets: Tweet[]
+    tweets: Tweet[],
+    retweet_count: number,
+    reply_count: number,
+    like_count: number,
+    quote_count: number,
 }
 
 export type FormattedStats = {

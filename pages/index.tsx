@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import {Button, CloseButton, Col, Modal, Row} from 'react-bootstrap';
+import {Button, CloseButton, Col, Modal, Row, Spinner} from 'react-bootstrap';
 import {CurrentStats, FormattedUser, UserStats} from '../lib/types';
 import Banner from '../components/stats/Banner';
 import Title from '../components/common/Title';
@@ -10,9 +10,36 @@ import {useState} from 'react';
 import UserDetails from '../components/modals/UserDetails';
 import {statsInDB} from '../lib/utils/streamTweetsUtils/storeData';
 import {fetchUsersFromDB} from '../lib/utils/streamTweetsUtils/fetchRecords';
+import {closeRedisConnection} from '../lib/dbs/redis/client';
+import LoadButton from '../components/common/LoadButton';
+import {cacheControlValue} from '../lib/constants';
 
 const Home: NextPage<{ users: FormattedUser[] } & {stats: UserStats}> = ({users, stats}) => {
     const [selectedUser, setSelectedUser] = useState<FormattedUser|null>(null);
+    const [page, setPage] = useState<number|null>(1);
+    const [pageUsers, setPageUsers] = useState<FormattedUser[]>([...users]);
+    const [loading, setLoading] = useState(false);
+
+    const nextPage = () => {
+        setLoading(true);
+
+        fetch(`/api/users/${page}`).then(response => {
+            setLoading(false);
+            if (response.ok) {
+                response.json().then(data => {
+                    if (!data.users?.length) {
+                        setPage(null);
+                        return;
+                    }
+
+                    setPageUsers([...pageUsers, ...data.users]);
+                    setPage(page + 1);
+
+                }).catch(err => console.error(err));
+            }
+        }).catch(err => console.error(err));
+    }
+
     return (
     <>
       <Head>
@@ -42,7 +69,7 @@ const Home: NextPage<{ users: FormattedUser[] } & {stats: UserStats}> = ({users,
                 </Col>
             </Row>
             <Row className="gx-0">
-                {users && users.slice(0, 10).map(user =>
+                {pageUsers.map(user =>
                     <Col key={user.id} lg={6} className="px-1 px-lg-3">
                         <User data={user} onClick={() => {
                             setSelectedUser(user)
@@ -52,7 +79,9 @@ const Home: NextPage<{ users: FormattedUser[] } & {stats: UserStats}> = ({users,
             </Row>
             <Row className="gx-0">
                 <Col lg={6} className="offset-lg-3 px-1 px-lg-3 animated-text">
-                    <Button variant="outline-light" className="w-100 load-more" >Load More</Button>
+                    <LoadButton loading={loading} page={page} onClick={nextPage}>
+                        Load More
+                    </LoadButton>
                 </Col>
             </Row>
         </Layout>
@@ -63,7 +92,8 @@ const Home: NextPage<{ users: FormattedUser[] } & {stats: UserStats}> = ({users,
 export default Home
 
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({res}) => {
+    res.setHeader('Cache-Control', cacheControlValue);
 
     const allStats = await statsInDB();
     const stats: UserStats = {
@@ -74,5 +104,7 @@ export const getServerSideProps = async () => {
     }
 
     const users = await fetchUsersFromDB(0, 15);
+    await closeRedisConnection();
+
     return {props: {users: users, stats: stats}};
 }

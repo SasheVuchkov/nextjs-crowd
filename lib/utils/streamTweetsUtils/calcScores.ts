@@ -27,7 +27,7 @@ export function calcUserScore(user: User, tweets: FormattedTweet[]): number {
 
     let engagement = calcUserEngagement(tweets)
   
-    return (followers_count / (following_count || 1)) * (engagement * 50);
+    return Math.floor((followers_count - following_count) * (engagement * 30));
 }
 
 export function calcStats(tweets: FormattedTweet[], users: FormattedUser[], stats?: EntityStats): FormattedStats  {

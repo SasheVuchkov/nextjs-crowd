@@ -1,5 +1,5 @@
+import React from 'react';
 import NavLink from 'next/link';
-import {edit} from '../../lib/icons';
 import {PropsWithChildren} from 'react';
 
 export type Props = {
