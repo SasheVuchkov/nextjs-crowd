@@ -1,4 +1,5 @@
 import React from 'react';
+import NextLink from 'next/link'
 import {Nav} from 'react-bootstrap';
 import Link from './Link';
 import {coffee, edit, follower, linkedin} from '../../lib/icons';
@@ -6,7 +7,11 @@ import {coffee, edit, follower, linkedin} from '../../lib/icons';
 export default function Sidebar() {
     return (
         <div className="position-fixed">
-            <div className="h4 my-4">Next.Js <span className="focus-color">Crowd</span></div>
+            <div className="h4 my-4">
+                <NextLink href="/">
+                    <span style={{cursor: 'pointer'}}>Next.Js <span className="focus-color">Crowd</span></span>
+                </NextLink>
+            </div>
             <Nav className="flex-column justify-content-center mt-4" style={{minHeight: '70vh'}}>
                 <Nav.Item className="mb-3">
                     <Link href="/" icon={follower}>

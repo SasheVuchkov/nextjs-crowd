@@ -30,6 +30,21 @@ a {
 .layout {
 }
 
+#nprogress .bar {
+  background: #fff !important;
+  min-height: 7px;
+}
+
+#nprogress .peg {
+  box-shadow: none !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #fff !important;
+  border-left-color: #fff !important;
+}
+
+
 .emoji {
   width: 18px;
   margin: 0 2px;
@@ -203,7 +218,6 @@ a {
   background-attachment: fixed;
 }
 
-
 .about .card {
   border: 1px solid  rgba(255,114,105, .7);
   background: linear-gradient(165deg, rgba(0,0,0,.65) 20%, rgba(227,26,18,.3) 100%);
@@ -363,12 +377,63 @@ footer {
 
 
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+
+@media(max-width: 1500px) {
+  .about .col-stats {
+    background: #000 url('/images/kenrick-mills-OQ9JdFiSc2s-unsplash1366.jpg');
+    background-size: cover;
+    background-attachment: fixed;
   }
-  body {
-    color: white;
-    background: black;
+
+  .tweets .col-stats {
+    background: #000 url('/images/david-troeger-M8xxVih_V_U-unsplash1366.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .index .col-stats {
+    background: #000 url('/images/cristian-palmer-lk2XMnkdFiw-unsplash1366.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+
+@media(max-width: 1024px) {
+  .about .col-stats {
+    background: #000 url('/images/kenrick-mills-OQ9JdFiSc2s-unsplash1024.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .tweets .col-stats {
+    background: #000 url('/images/david-troeger-M8xxVih_V_U-unsplash1024.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .index .col-stats {
+    background: #000 url('/images/cristian-palmer-lk2XMnkdFiw-unsplash1024.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+
+@media(max-width: 768px) {
+  .about .col-stats {
+    background: #000 url('/images/kenrick-mills-OQ9JdFiSc2s-unsplash500.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .tweets .col-stats {
+    background: #000 url('/images/david-troeger-M8xxVih_V_U-unsplash500.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .index .col-stats {
+    background: #000 url('/images/cristian-palmer-lk2XMnkdFiw-unsplash500.jpg');
+    background-size: cover;
+    background-attachment: fixed;
   }
 }

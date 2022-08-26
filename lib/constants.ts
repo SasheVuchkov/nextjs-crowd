@@ -10,7 +10,7 @@ export const aboutStats: AboutStats = {
     developers_num: 2,
     tech_used: 8,
     invested_hours: 348,
-    code_lines: 2006,
+    code_lines: 24482,
 }
 
 //Sashe Vuchkov: Some initial stats to consider
