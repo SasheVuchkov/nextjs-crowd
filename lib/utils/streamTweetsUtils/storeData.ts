@@ -28,9 +28,22 @@ export async function statsInDB(): Promise<EntityStats|undefined>{
     return record.shift();
 }
 
-export async function storeStatsInDB(stats: FormattedStats & {created_at_date: Date}): Promise<void> {
+export async function storeStatsInDB(stats: FormattedStats & {created_at_date: Date}, prevStats?: EntityStats): Promise<void> {
     const repo = await getStatsRepository()
-    await repo.createAndSave(stats);
+
+    if (!prevStats) {
+        await repo.createAndSave(stats);
+    } else {
+        prevStats.total_tweets = stats.total_tweets;
+        prevStats.total_likes = stats.total_likes;
+        prevStats.total_retweets = stats.total_retweets;
+        prevStats.total_replies = stats.total_replies;
+        prevStats.total_users = stats.total_users;
+        prevStats.total_followers = stats.total_followers;
+        prevStats.total_engagement = stats.total_engagement;
+        prevStats.total_engagement_rate = stats.total_engagement_rate;
+        await repo.save(prevStats);
+    }
 }
 
 

@@ -55,7 +55,7 @@ export default async function main(): Promise<void>{
     const stats = await statsInDB();
     const recentUsers = await fetchUsersFromDB(0, 10000);
     const newStats = calcStats(formattedTweets, recentUsers, stats);
-    await storeStatsInDB({...newStats, created_at_date: stats?.created_at_date || new Date()});
+    await storeStatsInDB({...newStats, created_at_date: stats?.created_at_date || new Date()}, stats);
 
     await closeRedisConnection();
   }
