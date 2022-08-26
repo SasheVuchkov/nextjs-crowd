@@ -111,7 +111,7 @@ await repo.search()
 
 ```
 
-How we fetch tweet ranked by a score:
+How we fetch tweets ranked by a score:
 
 ```js
 
@@ -133,8 +133,6 @@ await repo.search()
 ```
 
 ## How to run it locally?
-
-[Make sure you test this with a fresh clone of your repo, these instructions will be used to judge your app.]
 
 ### Prerequisites
 
