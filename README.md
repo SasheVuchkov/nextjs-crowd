@@ -41,7 +41,7 @@ We have a Tweet, User and a Stat document. I think it's self explementory what d
 
 Here there are our schema declarations:
 
-```
+```js
 export const tweetSchema = new Schema(EntityTweet, {
     id: { type: 'string' },
     text: { type: 'string' },
@@ -57,7 +57,7 @@ export const tweetSchema = new Schema(EntityTweet, {
 })
 ```
 
-```
+```js
   export const userSchema = new Schema(EntityUser, {
 
     id: {type: 'string'},
@@ -82,7 +82,7 @@ export const tweetSchema = new Schema(EntityTweet, {
 })
 ```
 
-```
+```js
 export const statsSchema = new Schema(EntityStats, {
     created_at: {type: 'string'},
     created_at_date: {type: 'date'},
@@ -102,7 +102,7 @@ We use the handy Redis OM library for Node.Js that helps us fetch data really ea
 
 How we fetch users ranked by a score:
 
-```
+```js
 
 await repo.search()
 .where('saved_at_date').gt(getStartDate())
@@ -112,7 +112,7 @@ await repo.search()
 
 How we fetch tweet ranked by a score:
 
-```
+```js
 
 await repo.search()
 .where('created_at_date').gt(getStartDate())
@@ -122,7 +122,7 @@ await repo.search()
 
 How we fetch tweets owned by a specific user:
 
-```
+```js
 
 await repo.search()
 .where('created_at_date').gt(getStartDate())
@@ -178,6 +178,7 @@ docker build . -t nextjs-crowd
 Step 4. Start a docker container
 
 ```
+
 docker run -p 3000:80 nextjs-crowd
 
 ```
@@ -185,7 +186,9 @@ docker run -p 3000:80 nextjs-crowd
 Step 5. Open the app in a browser
 
 ```
+
 http://localhost
+
 ```
 
 ## More Information about Redis Stack
