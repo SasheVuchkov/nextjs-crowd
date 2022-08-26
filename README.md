@@ -152,6 +152,7 @@ Step 2. Add your credentials to env.local and env.job.local files:
 cp .env.example .env.local
 cp .env.job.example .env.job.local
 
+```
 
 Step 3. Build the docker image
 
