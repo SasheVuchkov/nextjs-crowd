@@ -13,10 +13,7 @@ export const tweetSchema = new Schema(EntityTweet, {
     like_count: {type: 'number'}, 
     quote_count: {type: 'number'},
     entities: {type: 'string'}
-
-
-
-  })
+})
 
 
   export const userSchema = new Schema(EntityUser, {
