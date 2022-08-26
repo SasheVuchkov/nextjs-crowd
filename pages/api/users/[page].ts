@@ -7,6 +7,7 @@ import {
 } from '../../../lib/utils/streamTweetsUtils/fetchRecords';
 import {FormattedTweet, FormattedUser} from '../../../lib/types';
 import {cacheControlValue, perPage} from '../../../lib/constants';
+import getCacher from '../../../lib/utils/getCacher';
 
 type Data = {
     msg?: string
@@ -31,7 +32,17 @@ export default async function handler(
     }
 
     try {
+
+        const cachedUsers= await getCacher.get(`users_page_${req.query.page}`);
+
+        if (cachedUsers) {
+            res.setHeader('Cache-Control', cacheControlValue);
+            res.status(200).json({users: cachedUsers as FormattedUser[]});
+            return;
+        }
+
         const users = await fetchUsersFromDB(15 + (page - 1)*perPage ,perPage);
+        await getCacher.set(`users_page_${req.query.page}`, users);
         res.setHeader('Cache-Control', cacheControlValue);
         res.status(200).json({users});
     } catch (err) {

@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import {fetchTweetsByUserId, fetchTweetsFromDB} from '../../../lib/utils/streamTweetsUtils/fetchRecords';
 import {FormattedTweet} from '../../../lib/types';
 import {cacheControlValue, perPage} from '../../../lib/constants';
+import getCacher from '../../../lib/utils/getCacher';
 
 type Data = {
     msg?: string
@@ -27,7 +28,17 @@ export default async function handler(
     }
 
     try {
+
+        const cachedTweets = await getCacher.get(`tweets_page_${req.query.page}`);
+
+        if (cachedTweets) {
+            res.setHeader('Cache-Control', cacheControlValue);
+            res.status(200).json({tweets: cachedTweets as FormattedTweet[]});
+            return;
+        }
+
         const tweets = await fetchTweetsFromDB(15 + (page - 1)*perPage ,perPage);
+        await getCacher.set(`tweets_page_${req.query.page}`, tweets);
         res.setHeader('Cache-Control', cacheControlValue);
         res.status(200).json({tweets});
     } catch (err) {
