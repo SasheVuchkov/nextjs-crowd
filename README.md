@@ -104,7 +104,9 @@ How we fetch users ranked by a score:
 
 ```
 
-await repo.search().where('saved_at_date').gt(getStartDate()).sortDescending('score').return.page(offset, count);
+await repo.search()
+.where('saved_at_date').gt(getStartDate())
+.sortDescending('score').return.page(offset, count);
 
 ```
 
@@ -112,7 +114,9 @@ How we fetch tweet ranked by a score:
 
 ```
 
-await repo.search().where('created_at_date').gt(getStartDate()).sortDescending('score').return.page(offset, count)
+await repo.search()
+.where('created_at_date').gt(getStartDate())
+.sortDescending('score').return.page(offset, count)
 
 ```
 
@@ -120,7 +124,10 @@ How we fetch tweets owned by a specific user:
 
 ```
 
-await repo.search().where('created_at_date').gt(getStartDate()).where('author_id').eq(userId).sortDescending('score').return.page(0, 50)
+await repo.search()
+.where('created_at_date').gt(getStartDate())
+.where('author_id').eq(userId)
+.sortDescending('score').return.page(0, 50)
 
 ```
 
