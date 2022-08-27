@@ -51,12 +51,13 @@ export function calcStats(tweets: FormattedTweet[], users: FormattedUser[], stat
         total_replies: total_replies + (stats?.total_replies || 0),
     };
 
-    const totalEngagement = total_engagement + stats?.total_engagement || 0
+    const totalEngagement = total_engagement + (stats?.total_engagement || 0);
+
     return {
         ...tweetStats,
         total_users: users.length,
         total_followers: total_followers,
-        total_engagement: totalEngagement ,
+        total_engagement: totalEngagement,
         total_engagement_rate: `${(totalEngagement * 100 / (total_followers || 1)).toFixed(2)}%`,
     }
 }

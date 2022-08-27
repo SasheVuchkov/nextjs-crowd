@@ -62,7 +62,7 @@ const Home: NextPage<{ users: FormattedUser[] } & {stats: UserStats}> = ({users,
             }} />}
             <Row className="gx-0">
                 <Col lg={6} className="col-stats">
-                    <Banner className="mt-5 mt-lg-0" title={<Title prefix="Users" className="top-50 text-center">Stats</Title>} stats={stats} />
+                    <Banner className="mt-5 mt-lg-0" title={<Title prefix="Users" className="top-50 text-center">Stats<small className="d-block">(today)</small></Title>} stats={stats} />
                 </Col>
 
                 <Col lg={6} className="px-3 mt-5 mt-lg-0">
