@@ -13,7 +13,7 @@ export async function fetchTweetsFromDB(offset: number, count: number = initCoun
   for (const tweet of result) {
     const formattedTweet = mapEntityTweet(tweet);
 
-    const userEntity = await userIdInDB(formattedTweet.author_id);
+    const userEntity = await userIdInDB(formattedTweet.author_id, true);
 
     if (userEntity) {
       const userData = userEntity.toJSON();

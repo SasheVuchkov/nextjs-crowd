@@ -14,11 +14,17 @@ export async function tweetIdInDB(id: string): Promise<EntityTweet|undefined>{
 }
 
 
-export async function userIdInDB(id: string): Promise<EntityUser|undefined>{
+export async function userIdInDB(id: string, includeAll?: boolean): Promise<EntityUser|undefined>{
     const repo = await getUserRepository()
+
+    if (includeAll) {
+        let record = await repo.search().where('id').equals(id).return.all()
+        return record.pop();
+    }
+
+
   let record = await repo.search()
   .where('id').equals(id).where('saved_at_date').gt(getStartDate()).return.all()
-
     return record.shift();
 }
 
