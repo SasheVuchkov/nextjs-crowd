@@ -113,6 +113,7 @@ export const getServerSideProps = async ({res}) => {
     }
 
     const users = await fetchUsersFromDB(0, 15);
+    await closeRedisConnection();
 
     return {props: {users: users, stats: stats}};
 }

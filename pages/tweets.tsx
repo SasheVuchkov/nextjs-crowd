@@ -115,6 +115,7 @@ export const getServerSideProps = async ({res}) => {
     }
 
     const tweets = await fetchTweetsFromDB(0, 15);
-    
+    await closeRedisConnection();
+
     return {props: {tweets: tweets, stats: tweetStats}};
 }
