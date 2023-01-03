@@ -2,11 +2,11 @@
 
 It's a simple app that monitors Twitter and detects users that mention the react framework Next.js. The point is to collect all their tweets, process their public metrics like the number of likes, retweets, and replies, and finally, rank the discovered users by a score.
 
-![App's Top Users Screen](https://nextjs.buhalbu.com/images/nextjs-crowd-screenshot1.jpg)
+![App's Top Users Screen](https://storm2.buhalbu.com/wp-content/uploads/2023/01/nextjs-crowd-screenshot1.jpg)
 
-![App's Top Tweets Screen](https://nextjs.buhalbu.com/images/nextjs-crowd-screenshot2.jpg)
+![App's Top Tweets Screen](https://storm2.buhalbu.com/wp-content/uploads/2023/01/nextjs-crowd-screenshot2.jpg)
 
-![App's About Screen](https://nextjs.buhalbu.com/images/nextjs-crowd-screenshot3.jpg)
+![App's About Screen](https://storm2.buhalbu.com/wp-content/uploads/2023/01/nextjs-crowd-screenshot3.jpg)
 
 # Overview video (Optional)
 
